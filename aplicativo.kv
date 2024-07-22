@@ -1,0 +1,989 @@
+GerenciarTelas:
+    Tela1:
+    Tela2:
+    Tela3:
+    Tela4:
+    Tela5:
+
+<Tela1>:
+    name: "tela1"
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        MDLabel: # Cabeçalho
+            text: "Ascent to Olympus"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 218/255, 165/255, 32/255, 1
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+            font_size: 50
+        MDLabel:
+            text: "The Ancient Greek Game"
+            font_name: "Gelio Greek Diner"
+            halign: "center"
+            valign: "top"
+            color: 1, 0, 0, 1
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.905}
+            font_size: 25
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name: "Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: 184/255, 134/255, 11/255, 1
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+        Button: # Imagem de abertura
+            size_hint: None, None
+            size: 500, 364
+            pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+            background_normal: 'images/abre.jpg'
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name: "Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: 184/255, 134/255, 11/255, 1
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.46}
+        MDLabel: # Texto de apresentação e regras
+            text: "Embark on a Greek Mythology Adventure!\nRoll the dice, collect cards, overcome challenges, and conquer Olympus!\nMove across the board by rolling the dice.\nWin battles by rolling 4 or more.\nUse cards to overcome obstacles.\nCollect up to 3 cards."
+            font_name: "Olympus Bold"
+            font_size: 25
+            halign: "center"
+            color: 1, 1, 1, 1
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.33}
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name: "Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: 184/255, 134/255, 11/255, 1
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+        MDRaisedButton:
+            text: "Become a Legend!"
+            font_name: "Gelio Fasolada"
+            elevation: 0
+            font_size: 20
+            halign: "center"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.12}
+            on_release:
+                app.root.current = "tela2"
+                self.md_bg_color = app.theme_cls.primary_color
+
+
+<Tela2>:
+    name: 'tela2'
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 1  # Fundo preto na marra!!
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        MDLabel: # cabeçalho
+            text: "Ascent to Olympus"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 218/255, 165/255, 32/255, 1 # Goldenrod
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+            font_size: 50
+        MDLabel:
+            text: "The Ancient Greek Game"
+            font_name: "Gelio Greek Diner"
+            halign: "center"
+            valign: "top"
+            color: 1, 0, 0, 1  # Cor vermelha (RGBA)
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.905}
+            font_size: 25
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name:"Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: 184/255, 134/255, 11/255, 1  # DarkGoldenrod
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+        MDLabel:
+            text: "Reach Mount Olympus\nand receive the Gods' gift!"
+            font_name: "Olympus Bold"
+            font_size: 24
+            halign: "center"
+            color: 1, 1, 1, 1 # branco
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name:"Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: 184/255, 134/255, 11/255, 1  # DarkGoldenrod
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+
+        MDLabel: # Chamada escolher player
+            text: "Choose a Player"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 255/255, 140/255, 0/255, 1  # DarkOrange
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+            font_size: 25
+# Botões com imagens e tamanho fixo de 100x100 pixels
+        Button: # Botão escolher player Odisseu
+            size_hint: None, None
+            size: 110, 110
+            pos_hint: {'center_x': 0.1, 'center_y': 0.57}
+            background_normal: 'images/carinhas_escolha_odisseu.png'
+            background_down: 'images/carinhas_escolha_odisseu_pressed.png'# Imagem personalizada para o estado pressionado
+            border: (3, 3, 3, 3)
+            # background_down: ''  # remove a cor padrão azul do kivymd
+            on_release: app.escolher_jogador(1)
+            on_press: self.background_color = (1, 0, 0, 1)  # Muda a cor de fundo para vermelho ao pressionar
+            on_release: self.background_color = (1, 1, 1, 1)  # Reseta a cor de fundo ao soltar
+        MDLabel:
+            text: "Odysseus"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 1, 1, 1, 1  # Cor branca (RGBA)
+            size_hint: (0.2, 0.2)
+            pos_hint: {'center_x': 0.1, 'center_y': 0.495}
+            font_size: 20
+        Button: # Botão escolher player Hipolita
+            size_hint: None, None
+            size: 110, 110
+            pos_hint: {'center_x': 0.3, 'center_y': 0.57}
+            background_normal: 'images/carinhas_escolha_hipolita.png'
+            background_down: 'images/carinhas_escolha_hipolita_pressed.png'
+            border: (3, 3, 3, 3)
+            on_release: app.escolher_jogador(2)
+            on_press: self.background_color = (1, 0, 0, 1)  # Muda a cor de fundo para vermelho ao pressionar
+            on_release: self.background_color = (1, 1, 1, 1)  # Reseta a cor de fundo ao soltar
+        MDLabel:
+            text: "Hippolita"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 1, 1, 1, 1
+            size_hint: (0.2, 0.2)
+            pos_hint: {'center_x': 0.3, 'center_y': 0.495}
+            font_size: 20
+        Button: # Botão escolher player Aquiles
+            size_hint: None, None
+            size: 110, 110
+            pos_hint: {'center_x': 0.5, 'center_y': 0.57}
+            background_normal: 'images/carinhas_escolha_aquiles.png'
+            background_down: 'images/carinhas_escolha_aquiles_pressed.png'
+            border: (3, 3, 3, 3)
+            on_release: app.escolher_jogador(3)
+            on_press: self.background_color = (1, 0, 0, 1)  # Muda a cor de fundo para vermelho ao pressionar
+            on_release: self.background_color = (1, 1, 1, 1)  # Reseta a cor de fundo ao soltar
+        MDLabel:
+            text: "Achilles"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 1, 1, 1, 1
+            size_hint: (0.2, 0.2)
+            pos_hint: {'center_x': 0.5, 'center_y':0.495}
+            font_size: 20
+        Button:# Botão escolher player Atalanta
+            size_hint: None, None
+            size: 110, 110
+            pos_hint: {'center_x': 0.7, 'center_y':0.57}
+            background_normal: 'images/carinhas_escolha_atalanta.png'
+            background_down: 'images/carinhas_escolha_atalanta_pressed.png'
+            border: (3, 3, 3, 3)
+            on_release: app.escolher_jogador(4)
+            on_press: self.background_color = (1, 0, 0, 1)  # Muda a cor de fundo para vermelho ao pressionar
+            on_release: self.background_color = (1, 1, 1, 1)  # Reseta a cor de fundo ao soltar
+        MDLabel:
+            text: "Atalanta"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 1, 1, 1, 1
+            size_hint: (0.2, 0.2)
+            pos_hint: {'center_x': 0.7, 'center_y':0.495}
+            font_size: 20
+        Button: # Botão escolher player Teseu
+            size_hint: None, None
+            size: 110, 110
+            pos_hint: {'center_x': 0.9, 'center_y':0.57}
+            background_normal: 'images/carinhas_escolha_teseu.png'
+            background_down: 'images/carinhas_escolha_teseu_pressed.png'
+            border: (3, 3, 3, 3)
+            on_release: app.escolher_jogador(5)
+            on_press: self.background_color = (1, 0, 0, 1)  # Muda a cor de fundo para vermelho ao pressionar
+            on_release: self.background_color = (1, 1, 1, 1)  # Reseta a cor de fundo ao soltar
+        MDLabel:
+            text: "Theseus"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 1, 1, 1, 1
+            size_hint: (0.2, 0.2)
+            pos_hint: {'center_x': 0.9, 'center_y':0.495}
+            font_size: 20
+
+        MDLabel: # Chamada escolher carta"
+            text: "Click on a card to draw your starting card"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 255/255, 140/255, 0/255, 1  # DarkOrange
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.41}
+            font_size: 22
+        Button: # Cartas Botões com a função escolher carta
+            size_hint: None, None
+            size: 120, 190
+            pos_hint: {'center_x': 0.28, 'center_y': 0.285}
+            background_normal: 'images/cartinha_sorteio.jpg'
+            background_down: 'images/cartinha_sorteio_pressed.jpg'
+            border: (2, 2, 2, 2)
+            on_release: app.escolher_carta()
+            on_press: self.background_color = (1, 0, 0, 1)  # Muda a cor de fundo para vermelho ao pressionar
+            on_release: self.background_color = (1, 1, 1, 1)  # Reseta a cor de fundo ao soltar
+        Button: # Botão escolher carta"
+            size_hint: None, None
+            size: 120, 190
+            pos_hint: {'center_x': 0.5, 'center_y': 0.285}
+            background_normal: 'images/cartinha_sorteio.jpg'
+            background_down: 'images/cartinha_sorteio_pressed.jpg'
+            border: (2, 2, 2, 2)
+            on_release: app.escolher_carta()
+            on_press: self.background_color = (1, 0, 0, 1)
+            on_release: self.background_color = (1, 1, 1, 1)
+        Button: # Botão escolher carta"
+            size_hint: None, None
+            size: 120, 190
+            pos_hint: {'center_x': 0.72, 'center_y': 0.285}
+            background_normal: 'images/cartinha_sorteio.jpg'
+            background_down: 'images/cartinha_sorteio_pressed.jpg'
+            border: (2, 2, 2, 2)
+            on_release: app.escolher_carta()
+            on_press: self.background_color = (1, 0, 0, 1)
+            on_release: self.background_color = (1, 1, 1, 1)
+        MDRaisedButton: # Botão "tela3"
+            text: "->"
+            font_name: "Gelio Greek Diner"
+            elevation: 0
+            font_size: 25
+            halign: "center"
+            pos_hint: {'center_x': 0.6, 'center_y': 0.12}
+            padding: 0.1
+            on_release:
+                app.root.current = "tela3"
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+        MDRaisedButton:# Botão "voltar para tela 1"
+            text: "<-"
+            font_name: "Gelio Greek Diner"
+            elevation: 0
+            font_size: 25
+            halign: "center"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.12}
+            padding: 0.1 # Reduzir o valor do padding diminui a área total do botão.
+            on_release:
+                app.root.current = "tela1"
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+
+<Tela3>:
+    name: 'tela3'
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 1  # Fundo preto na marra!!
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        MDLabel: # Cabeçalho da página
+            text: "Ascent to Olympus"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 218/255, 165/255, 32/255, 1 # Goldenrod
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+            font_size: 50
+        MDLabel:
+            text: "The Ancient Greek Game"
+            font_name: "Gelio Greek Diner"
+            halign: "center"
+            valign: "top"
+            color: 1, 0, 0, 1  # Cor vermelha (RGBA)
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.905}
+            font_size: 25
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name:"Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: 184/255, 134/255, 11/255, 1  # DarkGoldenrod
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+
+        MDLabel: # nome do player selecionado
+            id: player_name
+            text: "Your player is: " + app.nome_player
+            font_name: "Gelio Fasolada"
+            halign: "left"
+            color: 255/255, 140/255, 0/255, 1  # DarkOrange
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.67, 'center_y': 0.8}
+            font_size: 25
+        Image: # imagem do player selecionado
+            id: player_image
+            source: app.image_player if app.image_player else 'images/carinha.png'
+            size_hint: (None, None)
+            size: (150, 150)
+            pos_hint: {'center_x': 0.2, 'center_y': 0.72}
+        MDLabel: # texto about do player selecionado
+            id: player_about
+            text: app.about_player
+            font_name: "Olympus Bold"
+            font_size: 21
+            halign: "left"
+            color: 1, 1, 1, 1  # White
+            size_hint: (0.6, 0.8)
+            pos_hint: {'center_x': 0.65, 'center_y': 0.72}
+
+        MDLabel: # Chamada da carta sorteada
+            text: "Your initial card is:"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 255/255, 140/255, 0/255, 1  # DarkOrange
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.61}
+            font_size: 25
+        Image: # imagem da carta sorteada
+            id: card_image
+            size_hint: None, None
+            size: 200, 300
+            pos_hint: {'center_x': 0.5, 'center_y': 0.435}
+            source: app.image_carta if app.image_carta else 'images/cartinha_sorteio.jpg'
+        MDLabel: # Texto ações da carta
+            id: card_action
+            text: "Card abilities: \n" + app.action_carta
+            font_name: "Olympus Bold"
+            font_size: 25
+            halign: "center"  # Align text to the left
+            color: 1, 1, 1, 1  # White
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name:"Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: 184/255, 134/255, 11/255, 1  # DarkGoldenrod
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.18}
+        MDRaisedButton: # botão voltar pagina 2
+            text: "<-"
+            font_name: "Gelio Greek Diner"
+            elevation: 0
+            font_size: 25
+            halign: "center"
+            pos_hint: {'center_x': 0.2, 'center_y': 0.12}
+            padding: 0.05 # Reduzir o valor do padding diminui a área total do botão.
+            on_release:
+                app.root.current = "tela2"
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+        MDRaisedButton: # Botão "Start Game"
+            text: "Start Game"
+            font_name: "Gelio Fasolada"
+            elevation: 0
+            font_size: 20
+            halign: "center"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.12}
+            on_release:
+                app.root.current = "tela4"
+                self.md_bg_color = app.theme_cls.primary_color
+        MDRaisedButton: # Botão "EXit Game"
+            text: "Exit"
+            font_name: "Gelio Fasolada"
+            elevation: 0
+            font_size: 16
+            halign: "center"
+            pos_hint: {'center_x': 0.8, 'center_y': 0.12}
+            padding: 0.05 # Reduzir o valor do padding diminui a área total do botão.
+            on_release:
+                app.root.current = app.sair_jogo()
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+
+
+<Tela4>:
+    name: 'tela4'
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 1  # Fundo preto na marra!!
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Image: # imagem dos tijolinhos no topo
+            id: tijolos_image
+            source: app.posicao_tijolos
+            size_hint: (None, None)
+            size: (720, 45)
+            pos_hint: {'center_x': 0.5}
+            y: self.parent.height - self.height
+        MDLabel: # Player
+            id: player_name
+            text: app.nome_player
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.25, 'center_y': 0.93}
+            font_size: 32
+        Image: # imagem do player selecionado
+            id: player_image
+            source: app.image_player if app.image_player else 'images/carinha.png'
+            size_hint: (None, None)
+            size: (180, 180)
+            pos_hint: {'center_x': 0.25, 'center_y': 0.82}
+        MDLabel: # PONTOS e XP
+            id: player_pontos_vida
+            text: "     XP: " + str(app.vida) + "     Points: " + str(app.pontos)
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.7, 'center_y': 0.93}
+            font_size: 24
+        MDLabel: #CARTAS
+            id: cartas_texto
+            text: "Your Cards:"
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: 1, 1, 1, 1
+            #color: app.cortabuleiro()
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.89}
+            font_size: 20
+        Image: # imagem carta 1 pequena
+            id: carta1_image
+            source: app.image_pequena_1
+            size_hint: (None, None)
+            size: (210, 132)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+        Image: # imagem carta 2 pequena
+            id: carta2_image
+            source: app.image_pequena_2
+            size_hint: (None, None)
+            size: (210, 132)
+            pos_hint: {'center_x': 0.65, 'center_y': 0.8}
+        Image: # imagem carta 3 pequena
+            id: carta3_image
+            source: app.image_pequena_3
+            size_hint: (None, None)
+            size: (210, 132)
+            pos_hint: {'center_x': 0.8, 'center_y': 0.8}
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name:"Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: app.cortabuleiro
+            #color: 1, 1, 1, 1 # branco
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.72}
+
+
+
+
+        # Tentativa do dado
+
+        MDRaisedButton: # botão para rolar o dado
+            text: " Roll a die! "
+            font_name: "Gelio Greek Diner"
+            elevation: 0
+            font_size: 25
+            halign: "center"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.65}
+            padding: 0.1
+            on_release: app.rolar_dado()
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            #self.md_bg_color = app.theme_cls.primary_color
+
+        Image: # imagem do dado rolando
+            id: dado_rolando
+            source: app.imagem_dado
+            #source: "images/dado_grego.gif"
+            size_hint: (None, None)
+            size: (80, 80)
+            pos_hint: {'center_x': 0.6, 'center_y': 0.65}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        MDLabel:
+            text: "<><><><><><><><><><><><><><><><><><><><><><><><><><>"
+            font_name:"Arial"
+            font_size: 16
+            bold: True
+            halign: "center"
+            color: app.cortabuleiro
+            #color: 1, 1, 1, 1 # branco
+            size_hint: (0.8, 0.8)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.26}
+
+
+        Label:
+            id: voce_aqui_1
+#            text: app.voce_esta_aqui_0
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.10, 'center_y': 0.23}
+            font_size: 16
+
+        Image:
+            id: casa1_imagem
+            source: app.mostra_casa_gambirra1
+            size_hint: (None, None)
+            size: (110, 110)
+            pos_hint: {'center_x': 0.10, 'center_y': 0.16}
+
+        Label:
+            id: casa1_label
+            text: app.exibir_nome_casa_0
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.1, 'center_y': 0.09}
+            font_size: 20
+
+        Label:
+            id: voce_aqui_2
+            text: app.you_are_here
+#            text: app.voce_esta_aqui_1
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.26, 'center_y': 0.23}
+            font_size: 16
+
+        Image:
+            id: casa2_imagem
+            source: app.mostra_casa_gambirra2
+            size_hint: (None, None)
+            size: (110, 110)
+            pos_hint: {'center_x': 0.26, 'center_y': 0.16}
+
+        Label:
+            id: casa2_label
+            text: app.exibir_nome_casa_1
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.26, 'center_y': 0.09}
+            font_size: 20
+
+        Label:
+            id: voce_aqui_3
+#            text: app.voce_esta_aqui_2
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.42, 'center_y': 0.23}
+            font_size: 16
+
+        Image:
+            id: casa3_imagem
+            source: app.mostra_casa_gambirra3
+            size_hint: (None, None)
+            size: (110, 110)
+            pos_hint: {'center_x': 0.42, 'center_y': 0.16}
+
+        Label:
+            id: casa3_label
+            text: app.exibir_nome_casa_2
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.42, 'center_y': 0.09}
+            font_size: 20
+
+        Label:
+            id: voce_aqui_4
+#            text: app.voce_esta_aqui_3
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.58, 'center_y': 0.23}
+            font_size: 16
+
+        Image:
+            id: casa4_imagem
+            source: app.mostra_casa_gambirra4
+            size_hint: (None, None)
+            size: (110, 110)
+            pos_hint: {'center_x': 0.58, 'center_y': 0.16}
+
+        Label:
+            id: casa4_label
+            text: app.exibir_nome_casa_3
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.58, 'center_y': 0.09}
+            font_size: 20
+
+        Label:
+            id: voce_aqui_5
+#            text: app.voce_esta_aqui_4
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.74, 'center_y': 0.23}
+            font_size: 16
+
+        Image:
+            id: casa5_imagem
+            source: app.mostra_casa_gambirra5
+            size_hint: (None, None)
+            size: (110, 110)
+            pos_hint: {'center_x': 0.74, 'center_y': 0.16}
+
+        Label:
+            id: casa5_label
+            text: app.exibir_nome_casa_4
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.74, 'center_y': 0.09}
+            font_size: 20
+
+        Label:
+            id: voce_aqui_6
+#            text: app.voce_esta_aqui_5
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.90, 'center_y': 0.23}
+            font_size: 16
+
+        Image:
+            id: casa6_imagem
+            source: app.mostra_casa_gambirra6
+            size_hint: (None, None)
+            size: (110, 110)
+            pos_hint: {'center_x': 0.90, 'center_y': 0.16}
+
+        Label:
+            id: casa6_label
+            text: app.exibir_nome_casa_5
+            font_name: "Gelio Fasolada"
+            halign: "center"
+            color: app.cortabuleiro
+            size_hint: (0.5, 0.5)
+            pos_hint: {'center_x': 0.90, 'center_y': 0.09}
+            font_size: 20
+
+
+#        Label:
+#            id: voce_aqui_1
+#            text: app.voce_esta_aqui(0)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.10, 'center_y': 0.23}
+#            font_size: 16
+#        Image: # imagem casa 1
+#            id: casa001
+#            source: app.exibir_imagem_casa(0)
+#            #source: 'casas/casa_001.jpg'
+#            size_hint: (None, None)
+#            size: (110, 110)
+#            pos_hint: {'center_x': 0.10, 'center_y': 0.16}
+#        Label:
+#            id: casa1_label
+#            #text: "Hermes"
+#            text: app.exibir_nome_casa(0)
+#            #text: app.exibir_texto(1)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.1, 'center_y': 0.09}
+#            font_size: 20
+#
+#        Label:
+#            id: voce_aqui_2
+#            text: app.voce_esta_aqui(1)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.26, 'center_y': 0.23}
+#            font_size: 16
+#
+#        Image: # imagem casa 2
+#            id: casa2_imagem
+#            source: app.exibir_imagem_casa(1)
+#            #source: 'casas/casa_002.jpg'
+#            size_hint: (None, None)
+#            size: (110, 110)
+#            pos_hint: {'center_x': 0.26, 'center_y': 0.16}
+#        Label:
+#            id: casa2_label
+#            text: app.exibir_nome_casa(1)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.26, 'center_y': 0.09}
+#            font_size: 20
+#
+#        Image: # imagem casa 3
+#            id: casa3_imagem
+#            source: app.exibir_imagem_casa(2)
+#            #source: 'casas/casa_003.jpg'
+#            size_hint: (None, None)
+#            size: (110, 110)
+#            pos_hint: {'center_x': 0.42, 'center_y': 0.16}
+#        Label:
+#            id: casa3_label
+#            text: app.exibir_nome_casa(2)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.42, 'center_y': 0.09}
+#            font_size: 20
+#
+#        Label:
+#            id: voce_aqui_4
+#            text: app.voce_esta_aqui(3)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.58, 'center_y': 0.23}
+#            font_size: 16
+#        Image: # imagem casa 4
+#            id: casa4_imagem
+#            source: app.exibir_imagem_casa(3)
+#            #source: 'casas/casa_004.jpg'
+#            size_hint: (None, None)
+#            size: (110, 110)
+#            pos_hint: {'center_x': 0.58, 'center_y': 0.16}
+#        Label:
+#            id: casa4_label
+#            text: app.exibir_nome_casa(3)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.58, 'center_y': 0.09}
+#            font_size: 20
+#
+#        Image: # imagem casa 5
+#            id: casa5_imagem
+#            source: app.exibir_imagem_casa(4)
+#            #source: 'casas/casa_005.jpg'
+#            size_hint: (None, None)
+#            size: (110, 110)
+#            pos_hint: {'center_x': 0.74, 'center_y': 0.16}
+#        Label:
+#            id: casa5_label
+#            text: app.exibir_nome_casa(4)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.74, 'center_y': 0.09}
+#            font_size: 20
+#
+#        Image: # imagem casa 6
+#            id: casa6_imagem
+#            source: app.exibir_imagem_casa(5)
+#            size_hint: (None, None)
+#            size: (110, 110)
+#            pos_hint: {'center_x': 0.90, 'center_y': 0.16}
+#        Label:
+#            id: casa6_label
+#            text: app.exibir_nome_casa(5)
+#            font_name: "Gelio Fasolada"
+#            halign: "center"
+#            color: app.cortabuleiro
+#            size_hint: (0.5, 0.5)
+#            pos_hint: {'center_x': 0.90, 'center_y': 0.09}
+#            font_size: 20
+
+
+
+
+
+
+
+
+
+
+
+        MDRaisedButton: # botão voltar pagina 3
+            text: "<-"
+            font_name: "Gelio Greek Diner"
+            elevation: 0
+            font_size: 25
+            halign: "center"
+            pos_hint: {'center_x': 0.2, 'center_y': 0.05}
+            padding: 0.05 # Reduzir o valor do padding diminui a área total do botão.
+            on_release:
+                app.root.current = "tela3"
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+                #self.md_bg_color = app.theme_cls.primary_color
+
+
+
+
+
+        MDRaisedButton: # Botão "Start Game"
+            text: "Start Game"
+            font_name: "Gelio Fasolada"
+            elevation: 0
+            font_size: 20
+            halign: "center"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.05}
+            on_release:
+                app.root.current = "tela5"
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+                #self.md_bg_color = app.theme_cls.primary_color
+
+
+
+
+        MDRaisedButton: # Botão "EXit Game"
+            text: "Exit"
+            font_name: "Gelio Fasolada"
+            elevation: 0
+            font_size: 16
+            halign: "center"
+            pos_hint: {'center_x': 0.8, 'center_y': 0.05}
+            padding: 0.05 # Reduzir o valor do padding diminui a área total do botão.
+            on_release:
+                app.root.current = app.sair_jogo()
+            md_bg_color: 0, 0, 0, 0  # Fundo transparente
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Cor da borda branca
+                Line:
+                    width: 1
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+
+
+
+<Tela5>:
+    name: 'tela5'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+
+        MDRaisedButton:
+            text: "Clique Aqui"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            on_release: app.root.current = "tela4"
+
+        BoxLayout:
+            size_hint: None, None
+            size: dp(200), dp(200)
+            pos_hint: {"center_x": 0.5}
+
+            Image:
+                id: gif_image
+                size_hint: None, None
+                size: dp(200), dp(200)
+                allow_stretch: True
+                keep_ratio: False
