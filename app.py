@@ -10,13 +10,15 @@ from PIL import Image, ImageDraw, ImageFont, ImageTk
 # import json
 # import webbrowser
 
+#ctk.set_appearance_mode("dark" )  # Modo de aparência: System", "dark" ou "light"
+
+
 import tkinter as tk
 from tkinter import filedialog, messagebox, Label, Tk, Canvas
 import customtkinter as ctk
 from customtkinter import CTkImage, CTkFont 
-from telas import Telas
-
-#ctk.set_appearance_mode("dark" )  # Modo de aparência: System", "dark" ou "light"
+from telas_iniciais import Telas
+from tela_jogo import Tela_Jogo
 
 
 class Interface_Jogo:
@@ -25,15 +27,20 @@ class Interface_Jogo:
         self.janela.title("Ascent To Olympus")
         self.janela.geometry("800x600")
         self.janela.resizable(False, False)  # Define a janela como não redimensionável
-        self.Telas = Telas(root)
-        self.widgets_dinamicos = self.Telas.widgets_dinamicos # traz de telas a Lista para armazenar widgets dinâmicos
+        self.Telas_iniciais = Telas(root)
+        
+        # Tela de jogo agora já recebe Telas
+        self.tela_jogo = self.Telas_iniciais.tela_jogo
+        
+        self.widgets_dinamicos = self.Telas_iniciais.widgets_dinamicos # traz de telas a Lista para armazenar widgets dinâmicos
         self.janela.configure(bg="black")
 
-        
                        
         # Interface de incialização 
-        #self.Telas.tela_01()
-        self.Telas.tela_02()
+        self.Telas_iniciais.tela_01()
+        #self.Telas_iniciais.tela_03()
+        #self.tela_jogo.tela_game()
+        
       
       
 if __name__ == "__main__":
