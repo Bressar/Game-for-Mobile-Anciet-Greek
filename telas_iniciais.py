@@ -16,8 +16,10 @@ from tela_jogo import Tela_Jogo
 
 
 class Telas:
-    def __init__(self, root):
+    def __init__(self, root, interface_jogo):
         self.root = root  # Referência à janela principal
+        self.interface_jogo = interface_jogo  # Referência à instância de Interface_Jogo
+
         self.widgets_dinamicos = []  # Lista para armazenar widgets dinâmicos
           
         self.back_end = Back_End()
@@ -25,11 +27,11 @@ class Telas:
 
         #self.tela_jogo = Tela_Jogo(root)
         # Passa a referência de Telas para Tela_Jogo
-        self.tela_jogo = Tela_Jogo(root, self)  
-        
+        self.tela_jogo = Tela_Jogo(root, self, interface_jogo)  
         
 
-               
+        
+             
     def on_button_click_personagem(self, personagem):
         """Lida com o clique no botão, atualiza a imagem e chama o backend."""
         # Atualiza a imagem para o estado de clique
@@ -116,13 +118,11 @@ class Telas:
             anchor="center")  
         
         texto_abertura =(
-"""Embark on a Greek Mythology Adventure !
-Roll the dice, collect cards, overcome challenges,
-and conquer Olympus !
-Move across the board by rolling the dice.
-Win battles by rolling 4 or more.
-Use cards to overcome obstacles.
-Collect up to 3 cards."""
+"""Embark on a Greek Mythology Adventure!
+
+Roll the dice, collect cards, overcome challenges,and conquer Olympus!
+Move across the board by rolling the dice. Win battles by rolling 4 or more.
+Use cards to overcome obstacles. Collect up to 3 cards."""
                )
         
         label_texto_abertura = ctk.CTkLabel(
@@ -130,27 +130,27 @@ Collect up to 3 cards."""
             text=texto_abertura,
             text_color="white",  # Cor do texto
             bg_color="black",  # Cor de fundo
-            font=("Olympus", 20)) # Fonte e tamanho      
+            font=("Cambria", 18)) # Fonte e tamanho      "Olympus" 
 
         label_texto_abertura.place(relx=0.5, y=405, anchor="n")
         self.widgets_dinamicos.append(label_texto_abertura)
         
-        # linha        
-        self.canvas_abre.create_text(
-            400,  
-            530,   
-            text="<><><><><><><><><><><><><><><><><><><><>", 
-            fill='#B8860B',  
-            font=("Arial", 12),  
-            anchor="center")  
+        # # linha        
+        # self.canvas_abre.create_text(
+        #     400,  
+        #     530,   
+        #     text="<><><><><><><><><><><><><><><><><><><><>", 
+        #     fill='#B8860B',  
+        #     font=("Arial", 12),  
+        #     anchor="center")  
                
         # Botão iniciar
         botao_iniciar = ctk.CTkButton(
             self.canvas_abre,
             width= 100,
             fg_color='#FF0000',
-            hover_color="#FFA500",
-            text="Become a Legend!",
+            hover_color="#FFA500", #self.back_end.cores_layout['laranja']  # "#FFA500"
+            text="Become a Legend!", 
             font= ("Gelio Fasolada", 21),
             command=lambda: self.tela_02()
         )
@@ -189,7 +189,7 @@ Collect up to 3 cards."""
         self.canvas_abre.create_text(
             400,  
             75,   
-            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
+            text="<><><><><><><><><><><><><><><><><><><><><><><>",  
             fill='#B8860B',  # Cor do texto RGB color: 184/255, 134/255, 11/255, 1
             font=("Arial", 12), 
             anchor="center")  
@@ -199,20 +199,20 @@ Collect up to 3 cards."""
             100,  
             text="Reach Mount Olympus and receive the Gods' gift!",  
             fill='white',
-            font=("Olympus", 16), 
+            font=("Cambria", 15), # Olympus
             anchor="center") 
         
         self.canvas_abre.create_text(
             400,  
             125,  
-            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><>", 
+            text="<><><><><><><><><><><><><><><><><><><><><><><>", 
             fill='#B8860B',  
             font=("Arial", 12), 
             anchor="center")   
         
         self.canvas_abre.create_text(
             400,  
-            160,   
+            170,   
             text="Choose a Player", 
             fill='#FF8C00',  # Cor do texto RGB color: 255/255, 140/255, 0/255, 1  # DarkOrange
             font=("Gelio Fasolada", 20),  
@@ -226,9 +226,9 @@ Collect up to 3 cards."""
         self.image_hipolita_click = PhotoImage(file="images/carinha_hipolita_click.png")
 
         # Adiciona a imagem inicial ao Canvas
-        self.img_hipolita_id = self.canvas_abre.create_image(400, 230, image=self.image_hipolita_menu)
+        self.img_hipolita_id = self.canvas_abre.create_image(400, 240, image=self.image_hipolita_menu)
         # Evento de clique
-        self.canvas_abre.tag_bind(self.img_hipolita_id, '<Button-1>', lambda event: self.on_button_click_personagem("hipolita"))
+        self.canvas_abre.tag_bind(self.img_hipolita_id, '<Button-1>', lambda event: self.on_button_click_personagem("hippolita"))
         # Evento de hover (mouse entra)
         self.canvas_abre.tag_bind(self.img_hipolita_id, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_hipolita_id, image=self.image_hipolita_hover))
         # Evento de hover (mouse sai)
@@ -241,7 +241,7 @@ Collect up to 3 cards."""
             bg_color="black",
             font=("Gelio Fasolada", 18)
         )
-        label_botao_hipolita.place(relx=0.5, y=280, anchor="n")
+        label_botao_hipolita.place(relx=0.5, y=290, anchor="n")
         self.widgets_dinamicos.append(label_botao_hipolita)
 
         # Botão Odysseus
@@ -249,8 +249,8 @@ Collect up to 3 cards."""
         self.image_odisseu_hover = PhotoImage(file="images/carinha_odisseu_hover.png")
         self.image_odisseu_click = PhotoImage(file="images/carinha_odisseu_click.png")
 
-        self.img_odisseu_id = self.canvas_abre.create_image(280, 230, image=self.image_odisseu_menu)
-        self.canvas_abre.tag_bind(self.img_odisseu_id, '<Button-1>', lambda event: self.on_button_click_personagem("odisseu"))
+        self.img_odisseu_id = self.canvas_abre.create_image(280, 240, image=self.image_odisseu_menu)
+        self.canvas_abre.tag_bind(self.img_odisseu_id, '<Button-1>', lambda event: self.on_button_click_personagem("odysseus"))
         self.canvas_abre.tag_bind(self.img_odisseu_id, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_odisseu_id, image=self.image_odisseu_hover))
         self.canvas_abre.tag_bind(self.img_odisseu_id, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_odisseu_id, image=self.image_odisseu_menu))
 
@@ -261,7 +261,7 @@ Collect up to 3 cards."""
             bg_color="black",
             font=("Gelio Fasolada", 18)
         )
-        label_botao_odisseu.place(x=280, y=280, anchor="n")
+        label_botao_odisseu.place(x=280, y=290, anchor="n")
         self.widgets_dinamicos.append(label_botao_odisseu)
 
         # Botão Achilles
@@ -269,8 +269,8 @@ Collect up to 3 cards."""
         self.image_aquiles_hover = PhotoImage(file="images/carinha_aquiles_hover.png")
         self.image_aquiles_click = PhotoImage(file="images/carinha_aquiles_click.png")
 
-        self.img_aquiles_id = self.canvas_abre.create_image(160, 230, image=self.image_aquiles_menu)
-        self.canvas_abre.tag_bind(self.img_aquiles_id, '<Button-1>', lambda event: self.on_button_click_personagem("aquiles"))
+        self.img_aquiles_id = self.canvas_abre.create_image(160, 240, image=self.image_aquiles_menu)
+        self.canvas_abre.tag_bind(self.img_aquiles_id, '<Button-1>', lambda event: self.on_button_click_personagem("achilles"))
         self.canvas_abre.tag_bind(self.img_aquiles_id, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_aquiles_id, image=self.image_aquiles_hover))
         self.canvas_abre.tag_bind(self.img_aquiles_id, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_aquiles_id, image=self.image_aquiles_menu))
 
@@ -281,7 +281,7 @@ Collect up to 3 cards."""
             bg_color="black",
             font=("Gelio Fasolada", 18)
         )
-        label_botao_aquiles.place(x=160, y=280, anchor="n")
+        label_botao_aquiles.place(x=160, y=290, anchor="n")
         self.widgets_dinamicos.append(label_botao_aquiles)
 
         # Botão Atalanta
@@ -289,7 +289,7 @@ Collect up to 3 cards."""
         self.image_atalanta_hover = PhotoImage(file="images/carinha_atalanta_hover.png")
         self.image_atalanta_click = PhotoImage(file="images/carinha_atalanta_click.png")
 
-        self.img_atalanta_id = self.canvas_abre.create_image(520, 230, image=self.image_atalanta_menu)
+        self.img_atalanta_id = self.canvas_abre.create_image(520, 240, image=self.image_atalanta_menu)
         self.canvas_abre.tag_bind(self.img_atalanta_id, '<Button-1>', lambda event: self.on_button_click_personagem("atalanta"))
         self.canvas_abre.tag_bind(self.img_atalanta_id, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_atalanta_id, image=self.image_atalanta_hover))
         self.canvas_abre.tag_bind(self.img_atalanta_id, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_atalanta_id, image=self.image_atalanta_menu))
@@ -301,7 +301,7 @@ Collect up to 3 cards."""
             bg_color="black",
             font=("Gelio Fasolada", 18)
         )
-        label_botao_atalanta.place(x=520, y=280, anchor="n")
+        label_botao_atalanta.place(x=520, y=290, anchor="n")
         self.widgets_dinamicos.append(label_botao_atalanta)
 
         # Botão Theseus
@@ -309,8 +309,8 @@ Collect up to 3 cards."""
         self.image_teseu_hover = PhotoImage(file="images/carinha_teseu_hover.png")
         self.image_teseu_click = PhotoImage(file="images/carinha_teseu_click.png")
 
-        self.img_teseu_id = self.canvas_abre.create_image(640, 230, image=self.image_teseu_menu)
-        self.canvas_abre.tag_bind(self.img_teseu_id, '<Button-1>', lambda event: self.on_button_click_personagem("teseu"))
+        self.img_teseu_id = self.canvas_abre.create_image(640, 240, image=self.image_teseu_menu)
+        self.canvas_abre.tag_bind(self.img_teseu_id, '<Button-1>', lambda event: self.on_button_click_personagem("theseus"))
         self.canvas_abre.tag_bind(self.img_teseu_id, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_teseu_id, image=self.image_teseu_hover))
         self.canvas_abre.tag_bind(self.img_teseu_id, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_teseu_id, image=self.image_teseu_menu))
 
@@ -321,7 +321,7 @@ Collect up to 3 cards."""
             bg_color="black",
             font=("Gelio Fasolada", 18)
         )
-        label_botao_teseu.place(x=640, y=280, anchor="n")
+        label_botao_teseu.place(x=640, y=290, anchor="n")
         self.widgets_dinamicos.append(label_botao_teseu)
         
                 
@@ -329,7 +329,7 @@ Collect up to 3 cards."""
          # Escolha uma carta
         self.canvas_abre.create_text(
         400,  
-        350,   
+        365,   
         text= "Click on a card to draw your starting card", 
         fill='#FF8C00',  # Cor do texto RGB color: 255/255, 140/255, 0/255, 1  # DarkOrange
         font=("Gelio Fasolada", 16),  
@@ -340,7 +340,7 @@ Collect up to 3 cards."""
         self.image_carta_escolha_hover1 = PhotoImage(file="images/carta_escolha_hover.png")
         self.image_carta_escolha_click1 = PhotoImage(file="images/carta_escolha_click.png")
 
-        self.img_carta_escolhida_id1 = self.canvas_abre.create_image(280, 450, image=self.image_carta_escolha_menu1)
+        self.img_carta_escolhida_id1 = self.canvas_abre.create_image(280, 470, image=self.image_carta_escolha_menu1)
         # Passando o número 1 para identificar a carta 1
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Button-1>', lambda event: self.on_button_click_carta(1))  
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id1 , image=self.image_carta_escolha_hover1))
@@ -351,7 +351,7 @@ Collect up to 3 cards."""
         self.image_carta_escolha_hover2 = PhotoImage(file="images/carta_escolha_hover.png")
         self.image_carta_escolha_click2 = PhotoImage(file="images/carta_escolha_click.png")
 
-        self.img_carta_escolhida_id2 = self.canvas_abre.create_image(400, 450, image=self.image_carta_escolha_menu2)
+        self.img_carta_escolhida_id2 = self.canvas_abre.create_image(400, 470, image=self.image_carta_escolha_menu2)
         # Passando o número 2 para identificar a carta 2
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id2, '<Button-1>', lambda event: self.on_button_click_carta(2))  
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id2, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id2 , image=self.image_carta_escolha_hover2))
@@ -362,7 +362,7 @@ Collect up to 3 cards."""
         self.image_carta_escolha_hover3 = PhotoImage(file="images/carta_escolha_hover.png")
         self.image_carta_escolha_click3 = PhotoImage(file="images/carta_escolha_click.png")
 
-        self.img_carta_escolhida_id3 = self.canvas_abre.create_image(520, 450, image=self.image_carta_escolha_menu3)
+        self.img_carta_escolhida_id3 = self.canvas_abre.create_image(520, 470, image=self.image_carta_escolha_menu3)
         # Passando o número 3 para identificar a carta 3
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id3, '<Button-1>', lambda event: self.on_button_click_carta(3))  
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id3, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id3 , image=self.image_carta_escolha_hover3))
@@ -382,7 +382,7 @@ Collect up to 3 cards."""
         command=lambda: self.tela_01()
         
         )
-        botao_voltar.place(x=230, y=550)
+        botao_voltar.place(x=20, y=550)
         self.widgets_dinamicos.append(botao_voltar)
 
 
@@ -399,10 +399,8 @@ Collect up to 3 cards."""
         command=lambda: self.tela_03()
         
         )
-        botao_avancar.place(x=520, y=550)
+        botao_avancar.place(x=730, y=550)
         self.widgets_dinamicos.append(botao_avancar)
-
-
 
 
     def tela_03(self):
@@ -436,7 +434,7 @@ Collect up to 3 cards."""
         self.canvas_abre.create_text(
             400,  
             75,   
-            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
+            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
             fill='#B8860B',  # Cor do texto RGB color: 184/255, 134/255, 11/255, 1
             font=("Arial", 12), 
             anchor="center")  
@@ -444,17 +442,17 @@ Collect up to 3 cards."""
 
         # Imagem Carinha
         self.image_carinha_jogador = PhotoImage(file="images/carinha_default.png") # depois trocar pela variável dinâmica
-        self.img_carinha = self.canvas_abre.create_image(150, 180, image=self.image_carinha_jogador)
+        self.img_carinha = self.canvas_abre.create_image(220, 165, image=self.image_carinha_jogador)
         
         # Titulo nome               
         label_titulo_nome = ctk.CTkLabel(
             self.root,
-            text= "Your player is: Odysseus", # trocar o nome pela variável de sistema
+            text= (f"Your player is: {self.back_end.personagem_escolhido }"), # trocar o nome pela variável de sistema
             text_color='#FF8C00',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
             bg_color="black",  
             font=("Gelio Fasolada", 22),
             )  # Alinha o texto à esquerda (west))            
-        label_titulo_nome.place(x=360, y=100) # relx=0.5, y=10, anchor="n"
+        label_titulo_nome.place(x=480, y=100, anchor="n") # relx=0.5, y=10, anchor="n"
         self.widgets_dinamicos.append(label_titulo_nome)
         
         # Titulo texto player
@@ -472,17 +470,13 @@ the status of a demigod."""
             text=texto_player,  # Substituir pelo texto dinâmico, se necessário
             text_color="white",  
             fg_color="black",  # Cor de fundo
-            font=("Olympus", 20), 
+            font=("Cambria", 17), 
         )
-        label_descricao_player.place(x=250, y=130)
+        label_descricao_player.place(x=480, y=130, anchor="n")
         self.widgets_dinamicos.append(label_descricao_player)
 
-      
-        # Imagem Carta
-        self.image_carta_jogador = PhotoImage(file="images/carta_default.png") # depois trocar pela variável dinâmica
-        self.img_carta_layout = self.canvas_abre.create_image(400, 375, image=self.image_carta_jogador)
-        
-         # Titulo carta              
+     
+      # Titulo carta              
         label_titulo_carta = ctk.CTkLabel(
             self.root,
             text= "Your initial card is: ZEUS", # trocar o nome pela variável de sistema
@@ -491,7 +485,7 @@ the status of a demigod."""
             font=("Gelio Fasolada", 22),
             anchor="w", ) 
            
-        label_titulo_carta.place(relx=0.5, y=240, anchor="n") # relx=0.5, y=10, anchor="n"
+        label_titulo_carta.place(x=400, y=240, anchor="n") # relx=0.5, y=10, anchor="n"
         self.widgets_dinamicos.append(label_titulo_carta)
         
         # Titulo texto player        
@@ -505,11 +499,25 @@ the status of a demigod."""
             text= texto_carta, # trocar o nome pela variável de sistema
             text_color='white',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
             bg_color="black",  
-            font=("Olympus", 20) ) 
+            font=("Cambria", 17) ) 
            
-        label_descricao_carta.place(relx=0.5, y=485, anchor="n") # relx=0.5, y=10, anchor="n"
+        label_descricao_carta.place(x=400, y=265, anchor="n") # relx=0.5, y=10, anchor="n"
         self.widgets_dinamicos.append(label_descricao_carta)
         
+        # Imagem Carta
+        self.image_carta_jogador = PhotoImage(file="images/carta_default.png") # depois trocar pela variável dinâmica
+        self.img_carta_layout = self.canvas_abre.create_image(400, 400, image=self.image_carta_jogador)
+        
+       
+        # Linha           
+        self.canvas_abre.create_text(
+            400,  
+            520,   
+            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
+            fill='#B8860B',  # Cor do texto RGB color: 184/255, 134/255, 11/255, 1
+            font=("Arial", 12), 
+            anchor="center")        
+ 
     
  # Botão de voltar
         botao_voltar = ctk.CTkButton(
@@ -524,7 +532,7 @@ the status of a demigod."""
         command=lambda: self.tela_02()
         
         )
-        botao_voltar.place(x=230, y=550)
+        botao_voltar.place(x=20, y=550)
         self.widgets_dinamicos.append(botao_voltar)
         
         # Botão de PLAY
@@ -537,7 +545,7 @@ the status of a demigod."""
             font=("Gelio Fasolada", 20),
             command=lambda: self.tela_jogo.tela_game()
         )
-        botao_start.place(x=350, y=555)
+        botao_start.place(x=400, y=550, anchor="n")
         self.widgets_dinamicos.append(botao_start)
         
         
@@ -551,9 +559,9 @@ the status of a demigod."""
         hover_color="black",
         text="EXIT",
         font=("Gelio Fasolada", 18),
-        command=lambda: self.tela_03() # acrescentar função de saída!!!!
+        command=lambda: self.interface_jogo.sair_jogo()# acrescentar função de saída!!!!
         )
-        botao_avancar.place(x=520, y=550)
+        botao_avancar.place(x=730, y=550)
         self.widgets_dinamicos.append(botao_avancar)
  
 
