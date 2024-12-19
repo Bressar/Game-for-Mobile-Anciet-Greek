@@ -510,10 +510,7 @@ the status of a demigod."""
         label_descricao_carta.place(relx=0.5, y=485, anchor="n") # relx=0.5, y=10, anchor="n"
         self.widgets_dinamicos.append(label_descricao_carta)
         
-        
-        
-
-
+    
  # Botão de voltar
         botao_voltar = ctk.CTkButton(
         self.canvas_abre,

@@ -12,7 +12,6 @@ from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 #ctk.set_appearance_mode("dark" )  # Modo de aparência: System", "dark" ou "light"
 
-
 import tkinter as tk
 from tkinter import filedialog, messagebox, Label, Tk, Canvas
 import customtkinter as ctk
@@ -24,8 +23,11 @@ from tela_jogo import Tela_Jogo
 class Interface_Jogo:
     def __init__(self, root):
         self.janela = root
-        self.janela.title("Ascent To Olympus")
+        self.janela.title("BresarGames©")
         self.janela.geometry("800x600")
+        
+        ctk.set_appearance_mode("dark")
+    
         self.janela.resizable(False, False)  # Define a janela como não redimensionável
         self.Telas_iniciais = Telas(root)
         
@@ -37,9 +39,9 @@ class Interface_Jogo:
 
                        
         # Interface de incialização 
-        self.Telas_iniciais.tela_01()
+        #self.Telas_iniciais.tela_01()
         #self.Telas_iniciais.tela_03()
-        #self.tela_jogo.tela_game()
+        self.tela_jogo.tela_game()
         
       
       
