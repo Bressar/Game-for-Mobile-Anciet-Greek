@@ -20,7 +20,7 @@ class Tela_Jogo:
         self.back_end = back_end  #  Back_End 
         self.back_end.load_fonts()
         
-        self.cor_Layout = self.back_end.cor_layout_atual # busca a cor do layout do backend        
+        # self.cor_Layout = self.back_end.cor_layout_atual # busca a cor do layout do backend        
         self.root.configure(bg="black")
         
               
@@ -41,18 +41,17 @@ class Tela_Jogo:
         self.canvas_abre = Canvas(self.root, width=800, height=600, bg="black", bd=0, highlightthickness=0)
         self.canvas_abre.place(x=0, y=0) 
         self.widgets_dinamicos.append(self.canvas_abre)
+        
+        self.back_end.atualizar_cor_layout()
+        self.cor_Layout = self.back_end.cor_layout_atual # busca a cor do layout do backend     
+        
                 
         # Imagem Tijolinho 
-        self.image_tijolinho = PhotoImage(file="images/tijolos_azuis.png") # depois trocar pela variável dinâmica
+        self.back_end.atualizar_tijolos()# atualiza as cores dos tijolos
+        self.image_tijolinho = PhotoImage(file=self.back_end.tijolos_cor_atual) # Variável dinâmica
         self.img_tijolinho = self.canvas_abre.create_image(400, 25, image=self.image_tijolinho)
         
-        
-        
-        
-        
-        
-        
-        
+
         print(f"Debug classe Tela Jogo: {self.back_end.personagem_escolhido_imagem}") 
         
         # Imagem Carinha Tela Jogo
@@ -186,63 +185,123 @@ class Tela_Jogo:
         self.image_carta_menu3 = PhotoImage(file=self.back_end.cartas_player[2]["imagem_pequena"])
         self.img_carta_id3 = self.canvas_abre.create_image(230, 355, image=self.image_carta_menu3)
   
-                
-        # Imagem casa 1
-        self.casa_1_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
-        self.img_casa_1_lista = self.canvas_abre.create_image(50, 520, image=self.casa_1_lista)
 
-        # Imagem casa 2
-        self.casa_2_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
+
+        # Chama a função exibir_casas do back_end para obter os 8 itens da lista de casas 
+        casas_exibidas = self.back_end.exibir_casas(self.back_end.casas)
+        
+        print(f'Lista de casas que a função retorna  {casas_exibidas}') # for debug
+        
+         # Imagem casa 1
+        self.casa_1_lista = PhotoImage(file= casas_exibidas[0]["imagem"])  # depois trocar pela variável dinâmica
+        self.img_casa_1_lista = self.canvas_abre.create_image(50, 520, image=self.casa_1_lista)
+       
+         # Imagem casa 2
+        self.casa_2_lista = PhotoImage(file=casas_exibidas[1]["imagem"])  # depois trocar pela variável dinâmica
         self.img_casa_2_lista = self.canvas_abre.create_image(150, 520, image=self.casa_2_lista)
 
-
         # Imagem casa 3
-        self.casa_3_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
+        self.casa_3_lista = PhotoImage(file=casas_exibidas[2]["imagem"])  # depois trocar pela variável dinâmica
         self.img_casa_3_lista = self.canvas_abre.create_image(250, 520, image=self.casa_3_lista)
         
-        label_voce_aqui_3 = ctk.CTkLabel(
-            self.root,
-            text= "You are here!", # trocar o nome pela variável de sistema
-            text_color=self.cor_Layout,  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
-            bg_color="black",  
-            font=("Gelio Fasolada", 14),
-            )            
-        label_voce_aqui_3.place(x=250, y=458, anchor="center") # relx=0.5, y=10, anchor="n"
-        self.widgets_dinamicos.append(label_voce_aqui_3)
-        
-        
-        label_nome_casa_3 = ctk.CTkLabel(
-            self.root,
-            text= "Harpies", # trocar o nome pela variável de sistema
-            text_color=self.cor_Layout,  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
-            bg_color="black",  
-            font=("Gelio Fasolada", 17),
-            )            
-        label_nome_casa_3.place(x=250, y=582, anchor="center") # relx=0.5, y=10, anchor="n"
-        self.widgets_dinamicos.append(label_nome_casa_3)
-
-
-
         # Imagem casa 4
-        self.casa_4_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
+        self.casa_4_lista = PhotoImage(file=casas_exibidas[3]["imagem"])  # depois trocar pela variável dinâmica
         self.img_casa_4_lista = self.canvas_abre.create_image(350, 520, image=self.casa_4_lista)
 
         # Imagem casa 5
-        self.casa_5_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
+        self.casa_5_lista = PhotoImage(file=casas_exibidas[4]["imagem"])  # depois trocar pela variável dinâmica
         self.img_casa_5_lista = self.canvas_abre.create_image(450, 520, image=self.casa_5_lista)
 
         # Imagem casa 6
-        self.casa_6_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
+        self.casa_6_lista = PhotoImage(file=casas_exibidas[5]["imagem"])  # depois trocar pela variável dinâmica
         self.img_casa_6_lista = self.canvas_abre.create_image(550, 520, image=self.casa_6_lista)
 
         # Imagem casa 7
-        self.casa_7_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
+        self.casa_7_lista = PhotoImage(file=casas_exibidas[6]["imagem"])  # depois trocar pela variável dinâmica
         self.img_casa_7_lista = self.canvas_abre.create_image(650, 520, image=self.casa_7_lista)
-
-        # Imagem casa 8
-        self.casa_8_lista = PhotoImage(file="images/casa_teste.png")  # depois trocar pela variável dinâmica
+        
+                # Imagem casa 8
+        self.casa_8_lista = PhotoImage(file=casas_exibidas[7]["imagem"])  # depois trocar pela variável dinâmica
         self.img_casa_8_lista = self.canvas_abre.create_image(750, 520, image=self.casa_8_lista)
 
+
+        # Lista de posições fixas no layout para as casas
+        posicoes_x = [50, 150, 250, 350, 450, 550, 650, 750]  # As posições X para as 8 casas
+        posicoes_y = 520  # Todas as casas têm a mesma posição Y fixada
+
+        # Exibe cada uma das casas
+        for i, casa in enumerate(casas_exibidas):
+            # Cria o texto associado à casa, que pode ser o texto da casa ou outro
+            label_nome_casa = ctk.CTkLabel(
+                self.root,
+                text=casa["texto"],  # Usando o texto da casa, que vem do dicionário
+                text_color=self.cor_Layout,  # Cor do texto, ajuste conforme necessário
+                bg_color="black",  
+                font=("Gelio Fasolada", 17),
+            )
+            label_nome_casa.place(x=posicoes_x[i], y=posicoes_y + 65, anchor="center")  # Posição fixa para o texto
+
+            # Armazenando os widgets (imagem e label) para manipulação futura
+            # self.widgets_dinamicos.append(img_casa)
+            self.widgets_dinamicos.append(label_nome_casa)
+
+        # Exibe para debug as casas que foram exibidas
+        for casa in casas_exibidas:
+            print(f"Casa {casa['numero']}: {casa['texto']} - {casa['imagem']}")
+            
+            
+            
+        # # Chama a função exibir_casas do back_end para obter os 8 itens da lista de casas
+        # casas_exibidas = self.back_end.exibir_casas()
+
+        # # A posição inicial das casas será dada por self.casa_atual, e será calculada dinamicamente
+        # x_position = 50 + ((self.back_end.casa_atual - 1) * 100)  # Baseando a posição X na casa_atual
+        
+
+        # # Exibe cada uma das casas
+        # for casa in casas_exibidas:
+        #     imagem_casa = PhotoImage(file=casa["imagem"])  # A imagem é carregada dinamicamente
+            
+        #     # Cria a imagem no canvas
+        #     img_casa = self.canvas_abre.create_image(x_position, 520, image=imagem_casa)
+            
+        #     # Cria o texto associado à casa
+        #     label_nome_casa = ctk.CTkLabel(
+        #         self.root,
+        #         text=casa["texto"],  # Usando o texto da casa
+        #         text_color=self.cor_Layout,  # Cor do texto, ajuste conforme necessário
+        #         bg_color="black",  
+        #         font=("Gelio Fasolada", 17),
+        #     )
+        #     label_nome_casa.place(x=x_position, y=582, anchor="center")  # A posição das labels é ajustada dinamicamente
+
+        #     # Armazenando os widgets (imagem e label) para manipulação futura
+        #     self.widgets_dinamicos.append(img_casa)
+        #     self.widgets_dinamicos.append(label_nome_casa)
+
+        #     # Atualiza a posição para a próxima casa
+        #     x_position += 100  # Distância de 100px entre as casas (ajuste conforme necessário)
+        
+        # # Exibe para debug as casas que foram exibidas
+        # for casa in casas_exibidas:
+        #     print(f"Casa {casa['numero']}: {casa['texto']} - {casa['imagem']}")
+
+           
+           
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         # Botão de sair

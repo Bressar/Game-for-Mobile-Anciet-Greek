@@ -433,7 +433,7 @@ Use cards to overcome obstacles. Collect up to 3 cards."""
             hover_color="#FFA500",
             text="START GAME",
             font=("Gelio Fasolada", 20),
-            command=lambda: self.tela_jogo.tela_game()# self.back_end.atualizar_tres_cartinhas_inicio() # vai pra Tela de jogo e carregga a primeira imagem
+            command=lambda: self.tela_jogo.tela_game()# vai pra Tela de jogo e carregga a primeira imagem
         )
         botao_start.place(x=400, y=550, anchor="n")
         self.widgets_dinamicos.append(botao_start)

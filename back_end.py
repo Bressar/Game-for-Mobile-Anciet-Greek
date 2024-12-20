@@ -16,6 +16,8 @@ class Back_End:
         self.personagem_escolhido_about = "Return and select a player\nto start"
         self.personagem_escolhido_imagem = None
         
+        self.casa_atual = 1 # Inicializando com a casa 1
+        
         self.carta_inicial = [{
             "nome": "No name",
             "action": "Return and select a card to start",
@@ -50,7 +52,8 @@ class Back_End:
             'laranja': "#FF8A65",  # (255/255, 138/255, 101/255)
             'vermelho': "#D32F2F",  # (211/255, 47/255, 47/255)
             'rosa': "#F48FB1",  # (244/255, 143/255, 177/255)
-            'roxo': "#9575CD"   # (149/255, 117/255, 205/255)
+            'roxo': "#9575CD",   # (149/255, 117/255, 205/255)
+            'agua': "#5FD3C1",
         }
         # deixar no default quando terminar o layout
         self.cor_layout_atual = self.cores_layout['branco'] #"default de layout texto branco
@@ -170,6 +173,18 @@ the status of a demigod.""",
         }
     ]
       
+        self.tijolos_cor = {
+            "azul": "images/tijolos_azuis.png",
+            "verde": "images/tijolos_verde.png",
+            "amarelo": "images/tijolos_amarelo.png",
+            "laranja": "images/tijolos_laranja.png",
+            "vermelho": "images/tijolos_vermelho.png",
+            "rosa": "images/tijolos_rosa.png",
+            "roxo": "images/tijolos_roxo.png",
+            "agua": "images/tijolos_agua.png",
+        }
+        self.tijolos_cor_atual = "images/tijolos_azuis.png" # default
+        
         self.dic_cards = {
             "1": self.cartas_deuses[0],   # Aphrodite
             "2": self.cartas_deuses[1],   # Apollo
@@ -184,6 +199,131 @@ the status of a demigod.""",
             "11": self.cartas_deuses[10],  # Zeus
             "12": self.cartas_deuses[11]  # Atena
         }
+        
+        self.casas = [
+    {"numero": 1, "texto": "Hermes", "imagem": "imagens_casas/casa_001.png"},
+    {"numero": 2, "texto": "", "imagem": "imagens_casas/casa_002.png"},
+    {"numero": 3, "texto": "", "imagem": "imagens_casas/casa_003.png"},
+    {"numero": 4, "texto": "", "imagem": "imagens_casas/casa_004.png"},
+    {"numero": 5, "texto": "Sphinx", "imagem": "imagens_casas/casa_005.png"},
+    {"numero": 6, "texto": "", "imagem": "imagens_casas/casa_006.png"},
+    {"numero": 7, "texto": "", "imagem": "imagens_casas/casa_007.png"},
+    {"numero": 8, "texto": "Prometheus", "imagem": "imagens_casas/casa_008.png"},
+    {"numero": 9, "texto": "", "imagem": "imagens_casas/casa_009.png"},
+    {"numero": 10, "texto": "", "imagem": "imagens_casas/casa_010.png"},
+    {"numero": 11, "texto": "", "imagem": "imagens_casas/casa_011.png"},
+    {"numero": 12, "texto": "", "imagem": "imagens_casas/casa_012.png"},
+    {"numero": 13, "texto": "", "imagem": "imagens_casas/casa_013.png"},
+    {"numero": 14, "texto": "", "imagem": "imagens_casas/casa_014.png"},
+    {"numero": 15, "texto": "", "imagem": "imagens_casas/casa_015.png"},
+    {"numero": 16, "texto": "", "imagem": "imagens_casas/casa_016.png"},
+    {"numero": 17, "texto": "", "imagem": "imagens_casas/casa_017.png"},
+    {"numero": 18, "texto": "", "imagem": "imagens_casas/casa_018.png"},
+    {"numero": 19, "texto": "", "imagem": "imagens_casas/casa_019.png"},
+    {"numero": 20, "texto": "", "imagem": "imagens_casas/casa_020.png"},
+    {"numero": 21, "texto": "", "imagem": "imagens_casas/casa_021.png"},
+    {"numero": 22, "texto": "", "imagem": "imagens_casas/casa_022.png"},
+    {"numero": 23, "texto": "", "imagem": "imagens_casas/casa_023.png"},
+    {"numero": 24, "texto": "", "imagem": "imagens_casas/casa_024.png"},
+    {"numero": 25, "texto": "", "imagem": "imagens_casas/casa_025.png"},
+    {"numero": 26, "texto": "", "imagem": "imagens_casas/casa_026.png"},
+    {"numero": 27, "texto": "", "imagem": "imagens_casas/casa_027.png"},
+    {"numero": 28, "texto": "", "imagem": "imagens_casas/casa_028.png"},
+    {"numero": 29, "texto": "", "imagem": "imagens_casas/casa_029.png"},
+    {"numero": 30, "texto": "", "imagem": "imagens_casas/casa_030.png"},
+    {"numero": 31, "texto": "", "imagem": "imagens_casas/casa_031.png"},
+    {"numero": 32, "texto": "", "imagem": "imagens_casas/casa_032.png"},
+    {"numero": 33, "texto": "", "imagem": "imagens_casas/casa_033.png"},
+    {"numero": 34, "texto": "", "imagem": "imagens_casas/casa_034.png"},
+    {"numero": 35, "texto": "", "imagem": "imagens_casas/casa_035.png"},
+    {"numero": 36, "texto": "", "imagem": "imagens_casas/casa_036.png"},
+    {"numero": 37, "texto": "", "imagem": "imagens_casas/casa_037.png"},
+    {"numero": 38, "texto": "", "imagem": "imagens_casas/casa_038.png"},
+    {"numero": 39, "texto": "", "imagem": "imagens_casas/casa_039.png"},
+    {"numero": 40, "texto": "", "imagem": "imagens_casas/casa_040.png"},
+    {"numero": 41, "texto": "", "imagem": "imagens_casas/casa_041.png"},
+    {"numero": 42, "texto": "", "imagem": "imagens_casas/casa_042.png"},
+    {"numero": 43, "texto": "", "imagem": "imagens_casas/casa_043.png"},
+    {"numero": 44, "texto": "", "imagem": "imagens_casas/casa_044.png"},
+    {"numero": 45, "texto": "", "imagem": "imagens_casas/casa_045.png"},
+    {"numero": 46, "texto": "", "imagem": "imagens_casas/casa_046.png"},
+    {"numero": 47, "texto": "", "imagem": "imagens_casas/casa_047.png"},
+    {"numero": 48, "texto": "", "imagem": "imagens_casas/casa_048.png"},
+    {"numero": 49, "texto": "", "imagem": "imagens_casas/casa_049.png"},
+    {"numero": 50, "texto": "", "imagem": "imagens_casas/casa_050.png"},
+    {"numero": 51, "texto": "", "imagem": "imagens_casas/casa_051.png"},
+    {"numero": 52, "texto": "", "imagem": "imagens_casas/casa_052.png"},
+    {"numero": 53, "texto": "", "imagem": "imagens_casas/casa_053.png"},
+    {"numero": 54, "texto": "", "imagem": "imagens_casas/casa_054.png"},
+    {"numero": 55, "texto": "", "imagem": "imagens_casas/casa_055.png"},
+    {"numero": 56, "texto": "", "imagem": "imagens_casas/casa_056.png"},
+    {"numero": 57, "texto": "", "imagem": "imagens_casas/casa_057.png"},
+    {"numero": 58, "texto": "", "imagem": "imagens_casas/casa_058.png"},
+    {"numero": 59, "texto": "", "imagem": "imagens_casas/casa_059.png"},
+    {"numero": 60, "texto": "", "imagem": "imagens_casas/casa_060.png"},
+    {"numero": 61, "texto": "", "imagem": "imagens_casas/casa_061.png"},
+    {"numero": 62, "texto": "", "imagem": "imagens_casas/casa_062.png"},
+    {"numero": 63, "texto": "", "imagem": "imagens_casas/casa_063.png"},
+    {"numero": 64, "texto": "", "imagem": "imagens_casas/casa_064.png"},
+    {"numero": 65, "texto": "", "imagem": "imagens_casas/casa_065.png"},
+    {"numero": 66, "texto": "", "imagem": "imagens_casas/casa_066.png"},
+    {"numero": 67, "texto": "", "imagem": "imagens_casas/casa_067.png"},
+    {"numero": 68, "texto": "", "imagem": "imagens_casas/casa_068.png"},
+    {"numero": 69, "texto": "", "imagem": "imagens_casas/casa_069.png"},
+    {"numero": 70, "texto": "", "imagem": "imagens_casas/casa_070.png"},
+    {"numero": 71, "texto": "", "imagem": "imagens_casas/casa_071.png"},
+    {"numero": 72, "texto": "", "imagem": "imagens_casas/casa_072.png"},
+    {"numero": 73, "texto": "", "imagem": "imagens_casas/casa_073.png"},
+    {"numero": 74, "texto": "", "imagem": "imagens_casas/casa_074.png"},
+    {"numero": 75, "texto": "", "imagem": "imagens_casas/casa_075.png"},
+    {"numero": 76, "texto": "", "imagem": "imagens_casas/casa_076.png"},
+    {"numero": 77, "texto": "", "imagem": "imagens_casas/casa_077.png"},
+    {"numero": 78, "texto": "", "imagem": "imagens_casas/casa_078.png"},
+    {"numero": 79, "texto": "", "imagem": "imagens_casas/casa_079.png"},
+    {"numero": 80, "texto": "", "imagem": "imagens_casas/casa_080.png"},
+    {"numero": 81, "texto": "", "imagem": "imagens_casas/casa_081.png"},
+    {"numero": 82, "texto": "", "imagem": "imagens_casas/casa_082.png"},
+    {"numero": 83, "texto": "", "imagem": "imagens_casas/casa_083.png"},
+    {"numero": 84, "texto": "", "imagem": "imagens_casas/casa_084.png"},
+    {"numero": 85, "texto": "", "imagem": "imagens_casas/casa_085.png"},
+    {"numero": 86, "texto": "", "imagem": "imagens_casas/casa_086.png"},
+    {"numero": 87, "texto": "", "imagem": "imagens_casas/casa_087.png"},
+    {"numero": 88, "texto": "", "imagem": "imagens_casas/casa_088.png"},
+    {"numero": 89, "texto": "", "imagem": "imagens_casas/casa_089.png"},
+    {"numero": 90, "texto": "", "imagem": "imagens_casas/casa_090.png"},
+    {"numero": 91, "texto": "", "imagem": "imagens_casas/casa_091.png"},
+    {"numero": 92, "texto": "", "imagem": "imagens_casas/casa_092.png"},
+    {"numero": 93, "texto": "", "imagem": "imagens_casas/casa_093.png"},
+    {"numero": 94, "texto": "", "imagem": "imagens_casas/casa_094.png"},
+    {"numero": 95, "texto": "", "imagem": "imagens_casas/casa_095.png"},
+    {"numero": 96, "texto": "", "imagem": "imagens_casas/casa_096.png"},
+    {"numero": 97, "texto": "", "imagem": "imagens_casas/casa_097.png"},
+    {"numero": 98, "texto": "", "imagem": "imagens_casas/casa_098.png"},
+    {"numero": 99, "texto": "", "imagem": "imagens_casas/casa_099.png"},
+    {"numero": 100, "texto": "", "imagem": "imagens_casas/casa_100.png"},
+    {"numero": 101, "texto": "", "imagem": "imagens_casas/casa_101.png"},
+    {"numero": 102, "texto": "", "imagem": "imagens_casas/casa_102.png"},
+    {"numero": 103, "texto": "", "imagem": "imagens_casas/casa_103.png"},
+    {"numero": 104, "texto": "", "imagem": "imagens_casas/casa_104.png"},
+    {"numero": 105, "texto": "", "imagem": "imagens_casas/casa_105.png"},
+    {"numero": 106, "texto": "", "imagem": "imagens_casas/casa_106.png"},
+    {"numero": 107, "texto": "", "imagem": "imagens_casas/casa_107.png"},
+    {"numero": 108, "texto": "", "imagem": "imagens_casas/casa_108.png"},
+    {"numero": 109, "texto": "", "imagem": "imagens_casas/casa_109.png"},
+    {"numero": 110, "texto": "", "imagem": "imagens_casas/casa_110.png"},
+    {"numero": 111, "texto": "", "imagem": "imagens_casas/casa_111.png"},
+    {"numero": 112, "texto": "", "imagem": "imagens_casas/casa_112.png"},
+    {"numero": 113, "texto": "", "imagem": "imagens_casas/casa_113.png"},
+    {"numero": 114, "texto": "", "imagem": "imagens_casas/casa_114.png"},
+    {"numero": 115, "texto": "", "imagem": "imagens_casas/casa_115.png"},
+    {"numero": 116, "texto": "", "imagem": "imagens_casas/casa_116.png"},
+    {"numero": 117, "texto": "", "imagem": "imagens_casas/casa_117.png"},
+    {"numero": 118, "texto": "", "imagem": "imagens_casas/casa_118.png"},
+    {"numero": 119, "texto": "", "imagem": "imagens_casas/casa_119.png"},
+    {"numero": 120, "texto": "", "imagem": "imagens_casas/casa_120.png"}
+]
+
+
 
 
     def escolher_carta(self):
@@ -247,4 +387,77 @@ the status of a demigod.""",
         else:
             print(f"Personagem {nome_personagem} não encontrado!")
             
+        
+
+
+
+
+
+
+    def exibir_casas(self, lista_maior):
+        # O número sorteado define de onde os 8 itens devem começar
+        # Vamos garantir que o número esteja entre 1 e 120
+        if self.casa_atual < 1 or self.casa_atual> 120:
+            raise ValueError("O número deve estar entre 1 e 120.")
+        
+        # Calcular o índice de início para a exibição de 8 itens
+        inicio = self.casa_atual - 1  # O índice começa de 0, então subtrai 1
+        
+        # Garantir que o início não ultrapasse o limite de 120 elementos
+        fim = inicio + 8
+        
+        # Se o fim ultrapassar 120, ajustamos para pegar até o fim da lista
+        if fim > len(lista_maior):
+            fim = len(lista_maior)
+            
+         # Calcular o início para garantir que sempre mostremos 8 elementos (se possível)
+        if fim - inicio < 8:  # Se o número de elementos a ser exibido for menor que 8
+            inicio = max(fim - 8, 0)  # Ajusta o início para que tenha 8 itens (ou menos no final)
+        
+        
+        # Pega os 8 itens ou até o fim da lista
+        lista_exibida = lista_maior[inicio:fim]
+        
+        # Retorna os 8 itens para serem exibidos
+        return lista_exibida
+    
+    
+    
+    def atualizar_tijolos(self):
+        if self.casa_atual <= 16:
+            self.tijolos_cor_atual = self.tijolos_cor["azul"]
+        elif self.casa_atual <= 32:
+            self.tijolos_cor_atual = self.tijolos_cor["verde"]
+        elif self.casa_atual <= 48:
+            self.tijolos_cor_atual = self.tijolos_cor["amarelo"]
+        elif self.casa_atual <= 64:
+            self.tijolos_cor_atual = self.tijolos_cor["laranja"]
+        elif self.casa_atual <= 80:
+            self.tijolos_cor_atual = self.tijolos_cor["vermelho"]
+        elif self.casa_atual <= 96:
+            self.tijolos_cor_atual = self.tijolos_cor["rosa"]
+        elif self.casa_atual <= 112:
+            self.tijolos_cor_atual = self.tijolos_cor["roxo"]
+        elif self.casa_atual <= 120:
+            self.tijolos_cor_atual = self.tijolos_cor["agua"]
+            
+            
+    def atualizar_cor_layout(self):
+        if self.casa_atual <= 16:
+            self.cor_layout_atual = self.cores_layout["azul"]
+        elif self.casa_atual <= 32:
+            self.cor_layout_atual = self.cores_layout["verde"]
+        elif self.casa_atual <= 48:
+            self.cor_layout_atual = self.cores_layout["amarelo"]
+        elif self.casa_atual <= 64:
+            self.cor_layout_atual = self.cores_layout["laranja"]
+        elif self.casa_atual <= 80:
+            self.cor_layout_atual = self.cores_layout["vermelho"]
+        elif self.casa_atual <= 96:
+            self.cor_layout_atual = self.cores_layout["rosa"]
+        elif self.casa_atual <= 112:
+            self.cor_layout_atual = self.cores_layout["roxo"]
+        elif self.casa_atual <= 120:
+            self.cor_layout_atual = self.cores_layout["agua"]
+
         
