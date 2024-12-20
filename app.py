@@ -37,9 +37,7 @@ class Interface_Jogo:
         self.widgets_dinamicos = self.Telas_iniciais.widgets_dinamicos # traz de telas a Lista para armazenar widgets dinâmicos
         
         self.janelas_abertas = [] # para a função sair(main)
-
-
-                       
+      
         # Interface de incialização 
         #self.Telas_iniciais.tela_01()
         #self.Telas_iniciais.tela_02()
