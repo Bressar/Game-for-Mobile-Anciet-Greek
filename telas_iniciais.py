@@ -25,12 +25,11 @@ class Telas:
         self.back_end = Back_End()
         self.back_end.load_fonts()
 
-        #self.tela_jogo = Tela_Jogo(root)
         # Passa a referência de Telas para Tela_Jogo
-        self.tela_jogo = Tela_Jogo(root, self, interface_jogo)  
+        self.tela_jogo = Tela_Jogo(root, self, interface_jogo, self.back_end)  
         
 
-        
+# até aqui!      
              
     def on_button_click_personagem(self, personagem):
         """Lida com o clique no botão, atualiza a imagem e chama o backend."""
@@ -41,7 +40,7 @@ class Telas:
             self.canvas_abre.itemconfig(img_id, image=image_click)
 
         # Atualiza o personagem no backend
-        self.back_end.escolher_personagem(personagem)
+        self.back_end.escolher_personagem(personagem)        
         print(f"Personagem {personagem} clicado e selecionado!")
       
         
@@ -50,13 +49,15 @@ class Telas:
         # Seleciona a imagem de clique com base no número da carta
         image_click = getattr(self, f"image_carta_escolha_click{carta_num}", None)  # Usando o número da carta
         img_id = getattr(self, f"img_carta_escolhida_id{carta_num}", None)  # Usando o número da carta
-        if img_id and image_click:
+        if img_id and image_click: # Verifica se as imagens e IDs existem
             # Atualiza a imagem para o estado de clique da carta
-            self.canvas_abre.itemconfig(img_id, image=image_click)
-            
+            self.canvas_abre.itemconfig(img_id, image=image_click)       
         # Chama a função do backend para escolher a carta
         self.back_end.escolher_carta()
         print(f"Carta {carta_num} Escolhida!")
+        print(f'carta inicial: {self.back_end.carta_inicial}')
+        print(f'cartas do jogador: {self.back_end.cartas_player}')
+ 
 
 
 
@@ -228,7 +229,8 @@ Use cards to overcome obstacles. Collect up to 3 cards."""
         # Adiciona a imagem inicial ao Canvas
         self.img_hipolita_id = self.canvas_abre.create_image(400, 240, image=self.image_hipolita_menu)
         # Evento de clique
-        self.canvas_abre.tag_bind(self.img_hipolita_id, '<Button-1>', lambda event: self.on_button_click_personagem("hippolita"))
+        self.canvas_abre.tag_bind(self.img_hipolita_id, '<Button-1>', lambda event: self.on_button_click_personagem("hippolyta"))
+        
         # Evento de hover (mouse entra)
         self.canvas_abre.tag_bind(self.img_hipolita_id, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_hipolita_id, image=self.image_hipolita_hover))
         # Evento de hover (mouse sai)
@@ -345,7 +347,7 @@ Use cards to overcome obstacles. Collect up to 3 cards."""
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Button-1>', lambda event: self.on_button_click_carta(1))  
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id1 , image=self.image_carta_escolha_hover1))
         self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id1 , image=self.image_carta_escolha_menu1))
-
+        
         # Carta 2
         self.image_carta_escolha_menu2 = PhotoImage(file="images/carta_escolha_menu.png")
         self.image_carta_escolha_hover2 = PhotoImage(file="images/carta_escolha_hover.png")
@@ -407,118 +409,7 @@ Use cards to overcome obstacles. Collect up to 3 cards."""
         self.canvas_abre = Canvas(self.root, width=800, height=600, bg="black", bd=0, highlightthickness=0)
         self.canvas_abre.place(x=0, y=0) 
         self.widgets_dinamicos.append(self.canvas_abre)
-        
-        # Titulo                
-        label_titulo = ctk.CTkLabel(
-            self.root,
-            text= "Ascent To Olympus",
-            text_color='#DAA520',  # Cor do texto amarela
-            bg_color="black",  
-            font=("Gelio Fasolada", 28)) 
-           
-        label_titulo.place(relx=0.5, y=10, anchor="n")
-        self.widgets_dinamicos.append(label_titulo)
-        
-        # SubTitulo    
-        label_subtitulo = ctk.CTkLabel(
-            self.root,
-            text= "The Ancient Greek Game",
-            text_color='#FF0000',  # Cor do texto vermelho
-            bg_color="black",
-            font=("Gelio Greek Diner", 17) )
-                   
-        label_subtitulo.place(relx=0.5, y=40, anchor="n")
-        self.widgets_dinamicos.append(label_subtitulo)
-        
-        # Linha           
-        self.canvas_abre.create_text(
-            400,  
-            75,   
-            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
-            fill='#B8860B',  # Cor do texto RGB color: 184/255, 134/255, 11/255, 1
-            font=("Arial", 12), 
-            anchor="center")  
-
-
-        # Imagem Carinha
-        self.image_carinha_jogador = PhotoImage(file="images/carinha_default.png") # depois trocar pela variável dinâmica
-        self.img_carinha = self.canvas_abre.create_image(220, 165, image=self.image_carinha_jogador)
-        
-        # Titulo nome               
-        label_titulo_nome = ctk.CTkLabel(
-            self.root,
-            text= (f"Your player is: {self.back_end.personagem_escolhido }"), # trocar o nome pela variável de sistema
-            text_color='#FF8C00',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
-            bg_color="black",  
-            font=("Gelio Fasolada", 22),
-            )  # Alinha o texto à esquerda (west))            
-        label_titulo_nome.place(x=480, y=100, anchor="n") # relx=0.5, y=10, anchor="n"
-        self.widgets_dinamicos.append(label_titulo_nome)
-        
-        # Titulo texto player
-        
-        texto_player = (
-"""king of Ithaca, outsmarts monsters and gods
-on his epic journey home after the Trojan War.
-He wants to reach Olympus to attain
-the status of a demigod."""
-        )
-
-        # Criar o label de descrição do jogador
-        label_descricao_player = ctk.CTkLabel(
-            self.root,
-            text=texto_player,  # Substituir pelo texto dinâmico, se necessário
-            text_color="white",  
-            fg_color="black",  # Cor de fundo
-            font=("Cambria", 17), 
-        )
-        label_descricao_player.place(x=480, y=130, anchor="n")
-        self.widgets_dinamicos.append(label_descricao_player)
-
-     
-      # Titulo carta              
-        label_titulo_carta = ctk.CTkLabel(
-            self.root,
-            text= "Your initial card is: ZEUS", # trocar o nome pela variável de sistema
-            text_color='#FF8C00',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
-            bg_color="black",  
-            font=("Gelio Fasolada", 22),
-            anchor="w", ) 
-           
-        label_titulo_carta.place(x=400, y=240, anchor="n") # relx=0.5, y=10, anchor="n"
-        self.widgets_dinamicos.append(label_titulo_carta)
-        
-        # Titulo texto player        
-        texto_carta = "Card abilities: Advance 6 spaces, or roll 2 dice"      
-        # trocar pelo caminho variável do personagem   
-             # texto about do player selecionado
-            # id: player_about
-            # text: app.about_player           
-        label_descricao_carta = ctk.CTkLabel(
-            self.root,
-            text= texto_carta, # trocar o nome pela variável de sistema
-            text_color='white',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
-            bg_color="black",  
-            font=("Cambria", 17) ) 
-           
-        label_descricao_carta.place(x=400, y=265, anchor="n") # relx=0.5, y=10, anchor="n"
-        self.widgets_dinamicos.append(label_descricao_carta)
-        
-        # Imagem Carta
-        self.image_carta_jogador = PhotoImage(file="images/carta_default.png") # depois trocar pela variável dinâmica
-        self.img_carta_layout = self.canvas_abre.create_image(400, 400, image=self.image_carta_jogador)
-        
-       
-        # Linha           
-        self.canvas_abre.create_text(
-            400,  
-            520,   
-            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
-            fill='#B8860B',  # Cor do texto RGB color: 184/255, 134/255, 11/255, 1
-            font=("Arial", 12), 
-            anchor="center")        
- 
-    
+            
  # Botão de voltar
         botao_voltar = ctk.CTkButton(
         self.canvas_abre,
@@ -529,8 +420,7 @@ the status of a demigod."""
         hover_color="black",
         text="<-",
         font=("Gelio Fasolada", 25),
-        command=lambda: self.tela_02()
-        
+        command=lambda: self.tela_02()       
         )
         botao_voltar.place(x=20, y=550)
         self.widgets_dinamicos.append(botao_voltar)
@@ -543,12 +433,11 @@ the status of a demigod."""
             hover_color="#FFA500",
             text="START GAME",
             font=("Gelio Fasolada", 20),
-            command=lambda: self.tela_jogo.tela_game()
+            command=lambda: self.tela_jogo.tela_game()# self.back_end.atualizar_tres_cartinhas_inicio() # vai pra Tela de jogo e carregga a primeira imagem
         )
         botao_start.place(x=400, y=550, anchor="n")
         self.widgets_dinamicos.append(botao_start)
-        
-        
+                
          # Botão de sair
         botao_avancar = ctk.CTkButton(
         self.canvas_abre,
@@ -559,10 +448,148 @@ the status of a demigod."""
         hover_color="black",
         text="EXIT",
         font=("Gelio Fasolada", 18),
-        command=lambda: self.interface_jogo.sair_jogo()# acrescentar função de saída!!!!
+        command=lambda: self.interface_jogo.sair_jogo()# Função de saída!!!!
         )
         botao_avancar.place(x=730, y=550)
         self.widgets_dinamicos.append(botao_avancar)
+        
+        # Titulo                
+        label_titulo = ctk.CTkLabel(
+            self.root,
+            text= "Ascent To Olympus",
+            text_color='#DAA520',  # Cor do texto amarela
+            bg_color="black",  
+            font=("Gelio Fasolada", 28))           
+        label_titulo.place(relx=0.5, y=10, anchor="n")
+        self.widgets_dinamicos.append(label_titulo)
+        
+        # SubTitulo    
+        label_subtitulo = ctk.CTkLabel(
+            self.root,
+            text= "The Ancient Greek Game",
+            text_color='#FF0000',  # Cor do texto vermelho
+            bg_color="black",
+            font=("Gelio Greek Diner", 17) )                   
+        label_subtitulo.place(relx=0.5, y=40, anchor="n")
+        self.widgets_dinamicos.append(label_subtitulo)
+        
+        # Linha           
+        self.canvas_abre.create_text(
+            400,  
+            75,   
+            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
+            fill='#B8860B',  # Cor do texto RGB color: 184/255, 134/255, 11/255, 1
+            font=("Arial", 12), 
+            anchor="center")  
+
+        # Imagem Carinha Tela 3
+        try:
+            print(f"Tentando carregar imagem: {self.back_end.personagem_escolhido_imagem}")
+            self.image_carinha_jogador = PhotoImage(file=self.back_end.personagem_escolhido_imagem)
+            self.img_carinha = self.canvas_abre.create_image(230, 165, image=self.image_carinha_jogador)
+            print(f"Debug Tela 3, imagem selecionada: {self.back_end.personagem_escolhido_imagem}") 
+        except Exception as e:
+            print(f"Erro ao carregar imagem selecionada: {e}")
+            self.image_carinha_jogador = PhotoImage(file="images/carinha_default.png")
+            self.img_carinha = self.canvas_abre.create_image(230, 165, image=self.image_carinha_jogador)
+                    
+        # Titulo nome  player             
+        label_titulo_nome = ctk.CTkLabel(
+            self.root,
+            text= (f"Your player is: {self.back_end.personagem_escolhido_nome}"), # trocar o nome pela variável de sistema
+            text_color='#FF8C00',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
+            bg_color="black",  
+            font=("Gelio Fasolada", 22),
+            )            
+        label_titulo_nome.place(x=480, y=100, anchor="n") 
+        self.widgets_dinamicos.append(label_titulo_nome)
+        
+        # Texto player   - ABOUT     
+        texto_player = self.back_end.personagem_escolhido_about
+
+        # Descrição do jogador
+        label_descricao_player = ctk.CTkLabel(
+            self.root,
+            text=texto_player, 
+            text_color="white",  
+            fg_color="black", 
+            font=("Cambria", 17), 
+        )
+        label_descricao_player.place(x=480, y=130, anchor="n")
+        self.widgets_dinamicos.append(label_descricao_player)
+
+     
+      # Titulo carta              
+        label_titulo_carta = ctk.CTkLabel(
+            self.root,
+            text= (f'Your initial card is: {self.back_end.carta_inicial[0]["nome"]}'), # Variável de sistema
+            text_color='#FF8C00',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
+            bg_color="black",  
+            font=("Gelio Fasolada", 22),
+            anchor="w", ) 
+           
+        label_titulo_carta.place(x=400, y=240, anchor="n")
+        self.widgets_dinamicos.append(label_titulo_carta)
+        
+        # Texto carta     
+        texto_carta = f'Card abilities: {self.back_end.carta_inicial[0]["action"]} '# "Card abilities: Advance 6 spaces, or roll 2 dice"      
+          
+        label_descricao_carta = ctk.CTkLabel(
+            self.root,
+            text= texto_carta, # trocar o nome pela variável de sistema
+            text_color='white',  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
+            bg_color="black",  
+            font=("Cambria", 17) ) 
+           
+        label_descricao_carta.place(x=400, y=265, anchor="n") # relx=0.5, y=10, anchor="n"
+        self.widgets_dinamicos.append(label_descricao_carta)
+        
+        # Imagem Carta
+        try:
+            # Verifica se o caminho da imagem está definido e tenta carregá-lo
+            caminho_imagem = self.back_end.carta_inicial[0].get("imagem", None)
+            if not caminho_imagem:
+                raise ValueError("Caminho da imagem está indefinido ou inválido.")
+            
+            print(f"Tentando carregar imagem: {caminho_imagem}")
+            # Tenta abrir e redimensionar a imagem
+            imagem_original = Image.open(caminho_imagem)
+            imagem_redimensionada = imagem_original.resize((130, 200), Image.Resampling.LANCZOS)
+            self.image_carta_jogador = ImageTk.PhotoImage(imagem_redimensionada)
+            self.img_carta_layout = self.canvas_abre.create_image(400, 400, image=self.image_carta_jogador)
+
+        except Exception as e:
+            print(f"Erro ao carregar imagem: {e}. Substituindo pela imagem padrão.")
+            # Carrega a imagem padrão em caso de erro
+            self.image_carta_jogador = PhotoImage(file="images/carta_default.png")
+            self.img_carta_layout = self.canvas_abre.create_image(400, 400, image=self.image_carta_jogador)
+
+
+        # try:
+        #     # Carrega a imagem original
+        #     imagem_original = Image.open(self.back_end.carta_inicial[0]["imagem"])           
+        #     # Redimensiona a imagem para 130x200 pixels
+        #     imagem_redimensionada = imagem_original.resize((130, 200), Image.Resampling.LANCZOS)           
+        #     # Converte a imagem redimensionada para PhotoImage (compatível com o Tkinter)
+        #     self.image_carta_jogador = ImageTk.PhotoImage(imagem_redimensionada)           
+        #     # Adiciona a imagem no canvas
+        #     self.img_carta_layout = self.canvas_abre.create_image(400, 400, image=self.image_carta_jogador)
+
+        # except Exception as e:
+        #     print(f"Erro ao carregar ou redimensionar a imagem: {e}")
+        #     self.image_carta_jogador = PhotoImage(file="images/carta_default.png")# Carrega uma imagem padrão em caso de erro
+        #     self.img_carta_layout = self.canvas_abre.create_image(400, 400, image=self.image_carta_jogador)
+
+        # Linha           
+        self.canvas_abre.create_text(
+            400,  
+            520,   
+            text="<><><><><><><><><><><><><><><><><><><><><><><><><><><><>",  
+            fill='#B8860B',  # Cor do texto RGB color: 184/255, 134/255, 11/255, 1
+            font=("Arial", 12), 
+            anchor="center")        
+ 
+ 
  
 
 

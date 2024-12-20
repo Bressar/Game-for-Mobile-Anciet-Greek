@@ -106,6 +106,7 @@ dic_cards = {
     "7": persephone,
     "8": hephaestus,
     "9": aphrodite,
+    "10": zeus,
     "11": apollo,
     "12": artemis
 }

@@ -6,16 +6,18 @@ import customtkinter as ctk
 from customtkinter import CTkImage, CTkFont 
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
+import os
+
+
 from back_end import Back_End
 
 class Tela_Jogo:
-    def __init__(self, root, telas_iniciais, interface_jogo):
+    def __init__(self, root, telas_iniciais, interface_jogo, back_end):
         self.root = root  # Referência à janela principal
         self.widgets_dinamicos = []  # Lista para armazenar widgets dinâmicos
         self.interface_jogo = interface_jogo  # Referência à instância de Interface_Jogo
-        self.telas_iniciais = telas_iniciais   # Referência à instância de Telas
-          
-        self.back_end = Back_End()
+        self.telas_iniciais = telas_iniciais   # Referência à instância de Telas    
+        self.back_end = back_end  #  Back_End 
         self.back_end.load_fonts()
         
         self.cor_Layout = self.back_end.cor_layout_atual # busca a cor do layout do backend        
@@ -44,15 +46,34 @@ class Tela_Jogo:
         self.image_tijolinho = PhotoImage(file="images/tijolos_azuis.png") # depois trocar pela variável dinâmica
         self.img_tijolinho = self.canvas_abre.create_image(400, 25, image=self.image_tijolinho)
         
-                 
-        # Imagem Carinha
-        self.image_carinha_jogador = PhotoImage(file="images/carinha_default_menor.png") # depois trocar pela variável dinâmica
-        self.img_carinha = self.canvas_abre.create_image(70, 160, image=self.image_carinha_jogador) 
+        
+        
+        
+        
+        
+        
+        
+        print(f"Debug classe Tela Jogo: {self.back_end.personagem_escolhido_imagem}") 
+        
+        # Imagem Carinha Tela Jogo
+        try:
+            print(f"Tentando carregar imagem: {self.back_end.personagem_escolhido_imagem}")       
+            imagem_original = Image.open(self.back_end.personagem_escolhido_imagem)
+            imagem_redimensionada = imagem_original.resize((125, 125), Image.Resampling.LANCZOS)
+            self.image_carinha_jogador = ImageTk.PhotoImage(imagem_redimensionada)       
+            self.img_carinha = self.canvas_abre.create_image(80, 160, image=self.image_carinha_jogador)
+            print(f"Debug Tela Jogo, imagem selecionada: {self.back_end.personagem_escolhido_imagem}") 
+        except Exception as e:
+            print(f"Erro ao carregar imagem selecionada: {e}")
+            self.image_carinha_jogador = PhotoImage(file="images/carinha_default_menor.png")
+            self.img_carinha = self.canvas_abre.create_image(80, 160, image=self.image_carinha_jogador)      
+                
+  
         
         # Nome do caboclinho              
         label_titulo_nome = ctk.CTkLabel(
             self.root,
-            text= "hippolyta", # trocar o nome pela variável de sistema
+            text= self.back_end.personagem_escolhido_nome, # Variável de sistema
             text_color= "white",  
             bg_color="black",  
             font=("Gelio Fasolada", 21),
@@ -154,41 +175,16 @@ class Tela_Jogo:
         label_cartas.place(x=10, y=265) # relx=0.5, y=10, anchor="n"
         self.widgets_dinamicos.append(label_cartas)
                  
-        # cartas
+        # cartas pequenas
          # Carta 1
-        self.image_carta_menu1 = PhotoImage(file="images/carta_menu.png")
-        # self.image_carta_escolha_hover1 = PhotoImage(file="images/carta_escolha_hover.png")
-        # self.image_carta_escolha_click1 = PhotoImage(file="images/carta_escolha_click.png")
-
+        self.image_carta_menu1 = PhotoImage(file=self.back_end.cartas_player[0]["imagem_pequena"]) 
         self.img_carta_id1 = self.canvas_abre.create_image(50, 355, image=self.image_carta_menu1)
-        # Passando o número 1 para identificar a carta 1
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Button-1>', lambda event: self.on_button_click_carta(1))  
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id1 , image=self.image_carta_escolha_hover1))
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id1, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id1 , image=self.image_carta_escolha_menu1))
-
         # Carta 2
-        self.image_carta_menu2 = PhotoImage(file="images/carta_menu.png")
-        # self.image_carta_escolha_hover2 = PhotoImage(file="images/carta_escolha_hover.png")
-        # self.image_carta_escolha_click2 = PhotoImage(file="images/carta_escolha_click.png")
-
+        self.image_carta_menu2 = PhotoImage(file=self.back_end.cartas_player[1]["imagem_pequena"])
         self.img_carta_id2 = self.canvas_abre.create_image(140, 355, image=self.image_carta_menu2)
-        # Passando o número 2 para identificar a carta 2
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id2, '<Button-1>', lambda event: self.on_button_click_carta(2))  
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id2, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id2 , image=self.image_carta_escolha_hover2))
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id2, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id2 , image=self.image_carta_escolha_menu2))
-
         # Carta 3
-        self.image_carta_menu3 = PhotoImage(file="images/carta_menu.png")
-        # self.image_carta_escolha_hover3 = PhotoImage(file="images/carta_escolha_hover.png")
-        # self.image_carta_escolha_click3 = PhotoImage(file="images/carta_escolha_click.png")
-
+        self.image_carta_menu3 = PhotoImage(file=self.back_end.cartas_player[2]["imagem_pequena"])
         self.img_carta_id3 = self.canvas_abre.create_image(230, 355, image=self.image_carta_menu3)
-        # # Passando o número 3 para identificar a carta 3
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id3, '<Button-1>', lambda event: self.on_button_click_carta(3))  
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id3, '<Enter>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id3 , image=self.image_carta_escolha_hover3))
-        # self.canvas_abre.tag_bind(self.img_carta_escolhida_id3, '<Leave>', lambda event: self.canvas_abre.itemconfig(self.img_carta_escolhida_id3 , image=self.image_carta_escolha_menu3))
-        
-        
   
                 
         # Imagem casa 1
