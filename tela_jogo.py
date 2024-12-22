@@ -24,7 +24,11 @@ class Tela_Jogo:
         # self.cor_Layout = self.back_end.cor_layout_atual # busca a cor do layout do backend        
         self.root.configure(bg="black")
         self.cor_Layout = self.back_end.cor_layout_atual # busca a cor do layout do 
-        
+        # para evitar erros na atualização das labels
+        self.label_carta_menu1 = None
+        self.label_carta_menu2 = None
+        self.label_carta_menu3 = None
+                
     def atualizar_cor(self, nova_cor):
         self.cor_Layout = nova_cor
         self.atualizar_tela()
@@ -60,12 +64,12 @@ class Tela_Jogo:
             imagem_original = Image.open(self.back_end.personagem_escolhido_imagem)
             imagem_redimensionada = imagem_original.resize((125, 125), Image.Resampling.LANCZOS)
             self.image_carinha_jogador = ImageTk.PhotoImage(imagem_redimensionada)       
-            self.img_carinha = self.canvas_abre.create_image(80, 160, image=self.image_carinha_jogador)
+            self.img_carinha = self.canvas_abre.create_image(80, 155, image=self.image_carinha_jogador)
             print(f"Debug Tela Jogo, imagem selecionada: {self.back_end.personagem_escolhido_imagem}") 
         except Exception as e:
             print(f"Erro ao carregar imagem selecionada: {e}")
             self.image_carinha_jogador = PhotoImage(file="images/carinha_default_menor.png")
-            self.img_carinha = self.canvas_abre.create_image(80, 160, image=self.image_carinha_jogador)      
+            self.img_carinha = self.canvas_abre.create_image(80, 155, image=self.image_carinha_jogador)      
                 
 
         # Nome do caboclinho              
@@ -122,7 +126,7 @@ class Tela_Jogo:
             pass  # Final do GIF
         # Configuraçºão do Canvas - tamanhao do Dado
         self.canvas = tk.Canvas(self.root, width=80, height=80, bg="black", highlightthickness=0)
-        self.canvas.place(x=160, y=110)       
+        self.canvas.place(x=160, y=100)       
         # Exibir o primeiro quadro
         self.image_on_canvas = self.canvas.create_image(0, 0, anchor="nw", image=self.frames[0])        
         # Inicializa o índice do quadro
@@ -142,40 +146,94 @@ class Tela_Jogo:
         font=("Gelio Greek Diner", 18),
         command=lambda: (self.rolar_dado(), self.atualizar_tela()) # ROLAR DADO!!!
         )
-        botao_rolar_dados.place(x=150, y=195)
+        botao_rolar_dados.place(x=150, y=185)
         self.widgets_dinamicos.append(botao_rolar_dados)
          
          #linha               
         self.canvas_abre.create_text(
-            140,  
-            240,  
-            text="<><><><><><><><><><><><><><>", 
+            150,  
+            230,  
+            text="<><><><><><><><><><><><><><><><>", 
             fill='gray', 
             font=("Arial", 12), 
             anchor="center")  
         
-        # CARTAS           
+   
+        # CARTAS  # CARTAS  # CARTAS  # CARTAS # CARTAS # CARTAS # CARTAS # CARTAS  
+                
         self.label_cartas = ctk.CTkLabel(
             self.root,
-            text= "Your Cards:", # trocar o nome pela variável de sistema
-            text_color="white",  # Cor 255/255, 140/255, 0/255, 1  # DarkOrange
+            text= "Your Cards:", 
+            text_color="white", 
             bg_color="black",  
             font=("Gelio Fasolada", 16),
             )            
-        #label_cartas.place(x=140, y=240, anchor="center") # relx=0.5, y=10, anchor="n"
-        self.label_cartas.place(x=10, y=265) # relx=0.5, y=10, anchor="n"
+        self.label_cartas.place(x=10, y=240) 
         self.widgets_dinamicos.append(self.label_cartas)
+        
+        
+
                  
         # cartas pequenas
          # Carta 1
-        self.image_carta_menu1 = PhotoImage(file=self.back_end.cartas_player[0]["imagem_pequena"]) 
-        self.img_carta_id1 = self.canvas_abre.create_image(50, 355, image=self.image_carta_menu1)
+        if len(self.back_end.cartas_player) >= 1:
+            self.image_carta_menu1 = PhotoImage(file=self.back_end.cartas_player[0]["imagem_pequena"])
+            
+            self.label_carta_menu1 = ctk.CTkLabel(
+            self.root,
+            text= self.back_end.cartas_player[0]["action_p"], # Variável de sistema
+            text_color= 'white',  
+            bg_color="black",  
+            font=("cambria", 14),
+            )            
+            self.label_carta_menu1.place(x=50, y=395, anchor='n' ) # relx=0.5, y=10, anchor="n"
+            self.widgets_dinamicos.append(self.label_carta_menu1)
+            
+        else:
+            self.image_carta_menu1 = PhotoImage(file="images/carta_menu.png")
+        self.img_carta_id1 = self.canvas_abre.create_image(50, 330, image=self.image_carta_menu1)
+
+
         # Carta 2
-        self.image_carta_menu2 = PhotoImage(file=self.back_end.cartas_player[1]["imagem_pequena"])
-        self.img_carta_id2 = self.canvas_abre.create_image(140, 355, image=self.image_carta_menu2)
+        if len(self.back_end.cartas_player) >= 2:
+            self.image_carta_menu2 = PhotoImage(file=self.back_end.cartas_player[1]["imagem_pequena"])
+            
+            self.label_carta_menu2 = ctk.CTkLabel(
+            self.root,
+            text= self.back_end.cartas_player[1]["action_p"], # Variável de sistema
+            text_color= 'white',  
+            bg_color="black",  
+            font=("cambria", 14),
+            )            
+            self.label_carta_menu2.place(x=150, y=395, anchor='n' ) # relx=0.5, y=10, anchor="n"
+            self.widgets_dinamicos.append(self.label_carta_menu2)
+            
+        else:
+            self.image_carta_menu2 = PhotoImage(file="images/carta_menu.png")
+        self.img_carta_id2 = self.canvas_abre.create_image(150, 330, image=self.image_carta_menu2)
+
+
         # Carta 3
-        self.image_carta_menu3 = PhotoImage(file=self.back_end.cartas_player[2]["imagem_pequena"])
-        self.img_carta_id3 = self.canvas_abre.create_image(230, 355, image=self.image_carta_menu3)
+        if len(self.back_end.cartas_player) == 3:
+            self.image_carta_menu3 = PhotoImage(file=self.back_end.cartas_player[2]["imagem_pequena"])
+            
+            self.label_carta_menu3 = ctk.CTkLabel(
+            self.root,
+            text= self.back_end.cartas_player[2]["action_p"], # Variável de sistema
+            text_color= 'white',  
+            bg_color="black",  
+            font=("cambria", 14),
+            )            
+            self.label_carta_menu3.place(x=250, y=395, anchor='n' ) # relx=0.5, y=10, anchor="n"
+            self.widgets_dinamicos.append(self.label_carta_menu3)
+            
+        else:
+            self.image_carta_menu3 = PhotoImage(file="images/carta_menu.png")
+        self.img_carta_id3 = self.canvas_abre.create_image(250, 330, image=self.image_carta_menu3)
+ 
+
+
+        # CASAS TABULEIRO  # CASAS TABULEIRO  # CASAS TABULEIRO  # CASAS TABULEIRO  # CASAS TABULEIRO  # CASAS TABULEIRO
   
         # Chama a função exibir_casas do back_end para obter os 8 itens da lista de casas 
         self.casas_exibidas = self.exibir_casas(self.back_end.casas)        
@@ -241,7 +299,7 @@ class Tela_Jogo:
         hover_color="red",
         text="EXIT",
         font=("Gelio Fasolada", 14),
-        command=lambda: self.interface_jogo.sair_jogo()
+        command=lambda: self.telas_iniciais.tela_02()#self.interface_jogo.sair_jogo()
         )
         botao_sair.place(x=750, y=60)
         self.widgets_dinamicos.append(botao_sair)
@@ -257,19 +315,19 @@ class Tela_Jogo:
 
         self.canvas_abre.create_text(
             550,  
-            435,  
+            450,  
             text="<><><><><><><><><><><><><><><><><><><><><><><><>", 
             fill='gray', # self.cor_Layout
             font=("Arial", 12), 
             anchor="center")  
         
-        self.canvas_abre.create_text(
-            140,  
-            435,  
-            text="<><><><><><><><><><><><><><>", 
-            fill='gray',  # #B8860B' dourado
-            font=("Arial", 12), 
-            anchor="center")  
+        # self.canvas_abre.create_text(
+        #     150,  
+        #     450,
+        #     text="<><><><><><><><><><><><><><><><>", 
+        #     fill='gray',  # #B8860B' dourado
+        #     font=("Arial", 12), 
+        #     anchor="center")  
                 
         # testando a função das cartas
         self.quadro_de_acao_carta()      
@@ -387,6 +445,7 @@ class Tela_Jogo:
             return
         
        # Verificar se os widgets ainda existem antes de configurá-los
+       # labels de texto
         if hasattr(self, 'label_titulo_nome') and self.label_titulo_nome.winfo_exists():
             self.label_titulo_nome.configure(text= (self.back_end.personagem_escolhido_nome), text_color="white")
 
@@ -399,6 +458,17 @@ class Tela_Jogo:
         if hasattr(self, 'label_cartas') and self.label_cartas.winfo_exists():
             self.label_cartas.configure(text="Your Cards:",text_color="white")
             
+        # cartinhas
+        if self.label_carta_menu1 and self.label_carta_menu1.winfo_exists():
+            self.label_carta_menu1.configure(text=self.back_end.cartas_player[0]["action_p"], text_color="white") 
+            
+        if self.label_carta_menu2 and self.label_carta_menu2.winfo_exists():
+            self.label_carta_menu2.configure(text=self.back_end.cartas_player[1]["action_p"], text_color="white")  
+        
+        if self.label_carta_menu3 and self.label_carta_menu3.winfo_exists():
+            self.label_carta_menu3.configure(text=self.back_end.cartas_player[2]["action_p"], text_color="white")  
+        
+
         # Atualizar a cor de fundo de todos os labels
         for widget in self.widgets_dinamicos:
             if isinstance(widget, ctk.CTkLabel):
@@ -406,9 +476,11 @@ class Tela_Jogo:
                 widget.configure(bg_color="black",)  #text_color=self.cor_Layout
                                
         for widget in self.widgets_dinamicos:
-            if isinstance(widget, ctk.CTkLabel) and widget not in [self.label_pontos, self.label_xp, self.label_titulo_nome,self.label_cartas]:
+            if isinstance(widget, ctk.CTkLabel) and widget not in [self.label_pontos, self.label_xp, self.label_titulo_nome,self.label_cartas,
+                                                                   self.label_carta_menu1, self.label_carta_menu2, self.label_carta_menu3]:
                 widget.destroy()
-                self.widgets_dinamicos = [self.label_pontos, self.label_xp, self.label_titulo_nome, self.label_cartas]  # Mantém o 'label_pontos' na lista
+                self.widgets_dinamicos = [self.label_pontos, self.label_xp, self.label_titulo_nome, self.label_cartas,
+                                          self.label_carta_menu1, self.label_carta_menu2, self.label_carta_menu3]  # Mantém as labels na lista
 
         # Atualiza as imagens das casas
         for i, casa in enumerate(self.casas_exibidas):
@@ -519,15 +591,20 @@ If you get 2 or less, move back 2 spaces."""
         
 
     def quadro_de_acao_carta(self):
-        # Carta 
-        self.image_carta_exibida = PhotoImage(file="images/carta_aphrodite_layout.png")
-        # self.image_carta_escolha_hover1 = PhotoImage(file="images/carta_escolha_hover.png")
-        # self.image_carta_escolha_click1 = PhotoImage(file="images/carta_escolha_click.png")
-
-        self.img_carta_exibida = self.canvas_abre.create_image(440, 265, image=self.image_carta_exibida)
+        # Carta
+        try:
+             self.image_carta_exibida = PhotoImage(file=self.back_end.carta_casa_deus[0]['imagem']) 
+             self.img_carta_exibida = self.canvas_abre.create_image(440, 265, image=self.image_carta_exibida)
+        except Exception as e:
+            print(f'Sem imagens nessa carta, usando a imagem default - > {e}')
+            self.image_carta_exibida = PhotoImage(file="images/carta_aphrodite_layout.png")
+            self.img_carta_exibida = self.canvas_abre.create_image(440, 265, image=self.image_carta_exibida)
         
-        
-        texto_descricao_carta = """The Aphrodite card has
+        try:
+            texto_descricao_carta = self.back_end.carta_casa_deus[0]['action']           
+        except Exception as e: 
+            print(f'Semtexto nessa carta, usando o texto default - > {e}')  
+            texto_descricao_carta = """The Aphrodite card has
 the power to move 
 forward 6 spaces.
 

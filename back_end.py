@@ -1,6 +1,6 @@
 # Funcionalidades do jogo
 # criado:  18/12/24
-# atualizado: 21/12/24
+# atualizado: 22/12/24
 
 import ctypes
 import tkinter as tk
@@ -25,30 +25,21 @@ class Back_End:
         self.carta_inicial = [{
             "nome": "No name",
             "action": "Return and select a card to start",
+            "action_p": """Return and select
+a card to start""",
             "imagem": "images/carta_default.png",
             "imagem_pequena": "images/carta_menu.png"
         }]
         
-        # Só pode ter 1 carta
-        self.cartas_player = [{
-        "nome": "cartinha 1",
-        "action": "Return and select a card to start",
-        "imagem": "images/carta_default.png",
-        "imagem_pequena": "images/carta_menu.png"
-         },
-         {
-        "nome": "cartinha 2",
-        "action": "Return and select a card to start",
-        "imagem": "images/carta_default.png",
-        "imagem_pequena": "images/carta_menu.png"
-         },
-         {
-        "nome": "cartinha 3",
-        "action": "Return and select a card to start",
-        "imagem": "images/carta_default.png",
-        "imagem_pequena": "images/carta_menu.png"
-         }] # cartas do jogador na partida, máximo 3 cartas
-        
+        self.carta_casa_deus = [ {
+            "nome": "Persephone",
+            "action": "Go back 1, 2, or 3 spaces",
+            "imagem": "images/carta_persephone.png",
+            "imagem_pequena": "images/carta_persephone_p.png"
+        }]
+        # Só pode ter 1 carta no inicio
+        self.cartas_player = [  ] # cartas do jogador na partida, máximo 3 cartas
+                
         self.cores_layout = {
             'branco': "#FFFFFF", # branco
             'azul': "#4DC2F5",   # (0.3, 0.76, 0.96, 1)
@@ -62,7 +53,7 @@ class Back_End:
         }
         # deixar no default quando terminar o layout
         
-        self.cor_layout_atual = self.cores_layout['branco'] #"default de layout texto branco
+        self.cor_layout_atual = self.cores_layout['azul'] #"default de layout texto azul
         
         # dicionário dos personagens em jogo
         self.personagens_jogo = [
@@ -108,72 +99,111 @@ the status of a demigod.""",
         {
             "nome": "Aphrodite",
             "action": "Advance 6 spaces",
+            "action_p": """Advance
+6 spaces""",
             "imagem": "images/carta_aphrodite.png",
             "imagem_pequena": "images/carta_aphrodite_p.png"
         },
         {
             "nome": "Apollo",
             "action": "Roll 2 dice",
+            "action_p": """Roll
+2 dice""",
             "imagem": "images/carta_apollo.png",
             "imagem_pequena": "images/carta_apollo_p.png"
         },
         {
             "nome": "Artemis",
             "action": "Advance 3 spaces, or roll 1 die",
+            "action_p": """Advance
+3 spaces,
+or roll
+1 die""",
             "imagem": "images/carta_artemis.png",
             "imagem_pequena": "images/carta_artemis_p.png"
         },
         {
             "nome": "Ares",
             "action": "Win 1 battle, or roll 1 die",
+            "action_p": """Win
+1 battle,
+or roll
+1 die""",
             "imagem": "images/carta_ares.png",
             "imagem_pequena": "images/carta_ares_p.png"
         },
         {
             "nome": "Hades",
             "action": "Gain one life",
+            "action_p": """Gain
+1 life""",
             "imagem": "images/carta_hades.png",
             "imagem_pequena": "images/carta_hades_p.png"
         },
         {
             "nome": "Hephaestus",
             "action": "Roll 1 die again",
+            "action_P": """Roll
+1 die
+again""",
             "imagem": "images/carta_hephaestus.png",
             "imagem_pequena": "images/carta_hephaestus_p.png"
         },
         {
             "nome": "Hera",
             "action": "Gain one life, or roll 1 die",
+            "action_p": """Gain
+1 life,
+or roll 
+1 die""",
             "imagem": "images/carta_hera.png",
             "imagem_pequena": "images/carta_hera_p.png"
         },
         {
             "nome": "Hermes",
             "action": "Advance 5 spaces, or skip 1 space",
+            "action_p": """Advance 
+5 spaces,
+or skip
+1 space""",
             "imagem": "images/carta_hermes.png",
             "imagem_pequena": "images/carta_hermes_p.png"
         },
         {
             "nome": "Persephone",
             "action": "Go back 1, 2, or 3 spaces",
+            "action_p": """Go back
+1, 2, or
+3 spaces""",
             "imagem": "images/carta_persephone.png",
             "imagem_pequena": "images/carta_persephone_p.png"
         },
         {
             "nome": "Poseidon",
             "action": "Advance 4 spaces, or roll 1 die",
+            "action_p": """Advance
+4 spaces,
+or roll
+1 die""",
             "imagem": "images/carta_poseidon.png",
             "imagem_pequena": "images/carta_poseidon_p.png"
         },
         {
             "nome": "Zeus",
             "action": "Advance 6 spaces, or roll 2 dice",
+            "action_p": """Advance
+6 spaces,
+or roll
+2 dice""",
             "imagem": "images/carta_zeus.png",
             "imagem_pequena": "images/carta_zeus_p.png"
         },
          {
             "nome": "Athena",
             "action": "Win 1 battle, or advance 2 spaces",
+            "action_p": """Win
+1 battle, or
+advance 2 spaces""",
             "imagem": "images/carta_athena.png",
             "imagem_pequena": "images/carta_athena_p.png"
         }
@@ -262,91 +292,75 @@ the status of a demigod.""",
     {"numero": 52, "texto": "Erinyes", "imagem": "imagens_casas/casa_052.png"},
     {"numero": 53, "texto": "", "imagem": "imagens_casas/casa_053.png"},
     {"numero": 54, "texto": "", "imagem": "imagens_casas/casa_054.png"},
-    {"numero": 55, "texto": "Demeter", "imagem": "imagens_casas/casa_055.png"},
+    {"numero": 55, "texto": "Persephone", "imagem": "imagens_casas/casa_055.png"},
     {"numero": 56, "texto": "", "imagem": "imagens_casas/casa_056.png"},
     {"numero": 57, "texto": "", "imagem": "imagens_casas/casa_057.png"},
     {"numero": 58, "texto": "", "imagem": "imagens_casas/casa_058.png"},
     {"numero": 59, "texto": "", "imagem": "imagens_casas/casa_059.png"},
     {"numero": 60, "texto": "", "imagem": "imagens_casas/casa_060.png"},
-    {"numero": 61, "texto": "", "imagem": "imagens_casas/casa_061.png"},
+    {"numero": 61, "texto": "Hydra", "imagem": "imagens_casas/casa_061.png"},
     {"numero": 62, "texto": "", "imagem": "imagens_casas/casa_062.png"},
     {"numero": 63, "texto": "", "imagem": "imagens_casas/casa_063.png"},
-    {"numero": 64, "texto": "", "imagem": "imagens_casas/casa_064.png"},
+    {"numero": 64, "texto": "Apollo", "imagem": "imagens_casas/casa_064.png"},
     {"numero": 65, "texto": "", "imagem": "imagens_casas/casa_065.png"},
-    {"numero": 66, "texto": "", "imagem": "imagens_casas/casa_066.png"},
+    {"numero": 66, "texto": "Sisyphus", "imagem": "imagens_casas/casa_066.png"},
     {"numero": 67, "texto": "", "imagem": "imagens_casas/casa_067.png"},
     {"numero": 68, "texto": "", "imagem": "imagens_casas/casa_068.png"},
-    {"numero": 69, "texto": "", "imagem": "imagens_casas/casa_069.png"},
+    {"numero": 69, "texto": "Centaurs", "imagem": "imagens_casas/casa_069.png"},
     {"numero": 70, "texto": "", "imagem": "imagens_casas/casa_070.png"},
-    {"numero": 71, "texto": "", "imagem": "imagens_casas/casa_071.png"},
+    {"numero": 71, "texto": "Satyrs", "imagem": "imagens_casas/casa_071.png"},
     {"numero": 72, "texto": "", "imagem": "imagens_casas/casa_072.png"},
-    {"numero": 73, "texto": "", "imagem": "imagens_casas/casa_073.png"},
+    {"numero": 73, "texto": "Hera", "imagem": "imagens_casas/casa_073.png"},
     {"numero": 74, "texto": "", "imagem": "imagens_casas/casa_074.png"},
-    {"numero": 75, "texto": "", "imagem": "imagens_casas/casa_075.png"},
+    {"numero": 75, "texto": "Sirens", "imagem": "imagens_casas/casa_075.png"},
     {"numero": 76, "texto": "", "imagem": "imagens_casas/casa_076.png"},
     {"numero": 77, "texto": "", "imagem": "imagens_casas/casa_077.png"},
     {"numero": 78, "texto": "", "imagem": "imagens_casas/casa_078.png"},
-    {"numero": 79, "texto": "", "imagem": "imagens_casas/casa_079.png"},
+    {"numero": 79, "texto": "Ares", "imagem": "imagens_casas/casa_079.png"},
     {"numero": 80, "texto": "", "imagem": "imagens_casas/casa_080.png"},
     {"numero": 81, "texto": "", "imagem": "imagens_casas/casa_081.png"},
-    {"numero": 82, "texto": "", "imagem": "imagens_casas/casa_082.png"},
+    {"numero": 82, "texto": "Nymphs", "imagem": "imagens_casas/casa_082.png"},
     {"numero": 83, "texto": "", "imagem": "imagens_casas/casa_083.png"},
     {"numero": 84, "texto": "", "imagem": "imagens_casas/casa_084.png"},
-    {"numero": 85, "texto": "", "imagem": "imagens_casas/casa_085.png"},
+    {"numero": 85, "texto": "Troy", "imagem": "imagens_casas/casa_085.png"},
     {"numero": 86, "texto": "", "imagem": "imagens_casas/casa_086.png"},
     {"numero": 87, "texto": "", "imagem": "imagens_casas/casa_087.png"},
-    {"numero": 88, "texto": "", "imagem": "imagens_casas/casa_088.png"},
+    {"numero": 88, "texto": "Aphrodite", "imagem": "imagens_casas/casa_088.png"},
     {"numero": 89, "texto": "", "imagem": "imagens_casas/casa_089.png"},
-    {"numero": 90, "texto": "", "imagem": "imagens_casas/casa_090.png"},
+    {"numero": 90, "texto": "Eros", "imagem": "imagens_casas/casa_090.png"},
     {"numero": 91, "texto": "", "imagem": "imagens_casas/casa_091.png"},
     {"numero": 92, "texto": "", "imagem": "imagens_casas/casa_092.png"},
-    {"numero": 93, "texto": "", "imagem": "imagens_casas/casa_093.png"},
+    {"numero": 93, "texto": "Pegasus", "imagem": "imagens_casas/casa_093.png"},
     {"numero": 94, "texto": "", "imagem": "imagens_casas/casa_094.png"},
     {"numero": 95, "texto": "", "imagem": "imagens_casas/casa_095.png"},
-    {"numero": 96, "texto": "", "imagem": "imagens_casas/casa_096.png"},
+    {"numero": 96, "texto": "Dionisius", "imagem": "imagens_casas/casa_096.png"},
     {"numero": 97, "texto": "", "imagem": "imagens_casas/casa_097.png"},
-    {"numero": 98, "texto": "", "imagem": "imagens_casas/casa_098.png"},
+    {"numero": 98, "texto": "Bacchaes", "imagem": "imagens_casas/casa_098.png"},
     {"numero": 99, "texto": "", "imagem": "imagens_casas/casa_099.png"},
-    {"numero": 100, "texto": "", "imagem": "imagens_casas/casa_100.png"},
+    {"numero": 100, "texto": "Pan", "imagem": "imagens_casas/casa_100.png"},
     {"numero": 101, "texto": "", "imagem": "imagens_casas/casa_101.png"},
     {"numero": 102, "texto": "", "imagem": "imagens_casas/casa_102.png"},
     {"numero": 103, "texto": "", "imagem": "imagens_casas/casa_103.png"},
-    {"numero": 104, "texto": "", "imagem": "imagens_casas/casa_104.png"},
+    {"numero": 104, "texto": "Artemis", "imagem": "imagens_casas/casa_104.png"},
     {"numero": 105, "texto": "", "imagem": "imagens_casas/casa_105.png"},
     {"numero": 106, "texto": "", "imagem": "imagens_casas/casa_106.png"},
-    {"numero": 107, "texto": "", "imagem": "imagens_casas/casa_107.png"},
+    {"numero": 107, "texto": "Orion", "imagem": "imagens_casas/casa_107.png"},
     {"numero": 108, "texto": "", "imagem": "imagens_casas/casa_108.png"},
     {"numero": 109, "texto": "", "imagem": "imagens_casas/casa_109.png"},
-    {"numero": 110, "texto": "", "imagem": "imagens_casas/casa_110.png"},
+    {"numero": 110, "texto": "Midas", "imagem": "imagens_casas/casa_110.png"},
     {"numero": 111, "texto": "", "imagem": "imagens_casas/casa_111.png"},
-    {"numero": 112, "texto": "", "imagem": "imagens_casas/casa_112.png"},
+    {"numero": 112, "texto": "Zeus", "imagem": "imagens_casas/casa_112.png"},
     {"numero": 113, "texto": "", "imagem": "imagens_casas/casa_113.png"},
     {"numero": 114, "texto": "", "imagem": "imagens_casas/casa_114.png"},
     {"numero": 115, "texto": "", "imagem": "imagens_casas/casa_115.png"},
-    {"numero": 116, "texto": "", "imagem": "imagens_casas/casa_116.png"},
+    {"numero": 116, "texto": "Chronos", "imagem": "imagens_casas/casa_116.png"},
     {"numero": 117, "texto": "", "imagem": "imagens_casas/casa_117.png"},
     {"numero": 118, "texto": "", "imagem": "imagens_casas/casa_118.png"},
-    {"numero": 119, "texto": "", "imagem": "imagens_casas/casa_119.png"},
+    {"numero": 119, "texto": "Griffins", "imagem": "imagens_casas/casa_119.png"},
     {"numero": 120, "texto": "", "imagem": "imagens_casas/casa_120.png"}
 ]
        
-    # """Registra a Tela_Jogo como observadora"""
-    # def adicionar_observador(self, observador):
-    #     self.observadores.append(observador)
-
-    # """Notifica todos os observadores (ex: Tela_Jogo) sobre uma atualização"""
-    # def notificar_observadores(self):
-    #     for observador in self.observadores:
-    #         observador.atualizar_interface()
-     
-            
-    # def atualizar_dados(self, casa_atual, player_pontos):
-    #     """Método para atualizar dados no Back_End"""
-    #     self.casa_atual = casa_atual
-    #     self.player_pontos = player_pontos
-    #     self.notificar_observadores()  # Notifica todos os observadores sobre a mudança
-
-
+    # escolha a carta inicial
     def escolher_carta(self):
         # Sorteia um número aleatório entre 1 e 12
         numero_sorteado = str(random.randint(1, 12))  # Convertido para string, pois as chaves no dic_cards são strings
@@ -362,6 +376,51 @@ the status of a demigod.""",
             # Se já existir uma carta no índice 0, substitui a carta
             self.cartas_player[0] = self.carta_inicial[0]
 
+        # Garante que a lista de cartas do jogador não exceda o limite de 3
+        if len(self.cartas_player) > 3:
+            self.cartas_player = self.cartas_player[:3]  # Mantém apenas os primeiros 3 elementos
+
+        # Exibe as informações da carta sorteada
+        carta_sorteada = self.carta_inicial[0]
+        print(f"**Carta Sorteada:** {carta_sorteada['nome']}")
+        print(f"Ação: {carta_sorteada['action']}")
+        print(f"Imagem: {carta_sorteada['imagem']}")
+
+        # Debug: Exibe todas as cartas do jogador
+        print("**Cartas do Jogador:**")
+        for carta in self.cartas_player:
+            print(f"- {carta['nome']}: {carta['action']}")
+            print(f"- {carta['imagem']}: {carta['imagem_pequena']}")
+
+    # Em construção!!!!
+    def adicionar_carta_player(self):
+        if self.casa_atual == 1:
+            self.carta_casa_deus = self.carta_casa_deus[7] #hermes
+        elif self.casa_atual == 21:
+            self.carta_casa_deus = self.carta_casa_deus[9] #poseidon
+        elif self.casa_atual == 30:
+            self.carta_casa_deus = self.carta_casa_deus[11] #atena
+        elif self.casa_atual == 38:
+            self.carta_casa_deus = self.carta_casa_deus[4] #hades
+        elif self.casa_atual == 49:
+            self.carta_casa_deus = self.carta_casa_deus[5] #hefesto
+        elif self.casa_atual == 55:
+            self.carta_casa_deus = self.carta_casa_deus[8] #persefone
+        elif self.casa_atual == 64:
+            self.carta_casa_deus = self.carta_casa_deus[1] #apolo
+        elif self.casa_atual == 73:
+            self.carta_casa_deus = self.carta_casa_deus[6] #hera
+        elif self.casa_atual == 79:
+            self.carta_casa_deus = self.carta_casa_deus[3] #ares
+        elif self.casa_atual == 88:
+            self.carta_casa_deus = self.carta_casa_deus[0] #afrodite
+        elif self.casa_atual == 104:
+            self.carta_casa_deus = self.carta_casa_deus[2] #artemis
+        elif self.casa_atual == 112:
+            self.carta_casa_deus = self.carta_casa_deus[10] #zeus
+            
+        self.cartas_player.add(self.carta_casa_deus)
+        
         # Garante que a lista de cartas do jogador não exceda o limite de 3
         if len(self.cartas_player) > 3:
             self.cartas_player = self.cartas_player[:3]  # Mantém apenas os primeiros 3 elementos
@@ -407,13 +466,7 @@ the status of a demigod.""",
                   f"Imagem do personagem: {self.personagem_escolhido_imagem}")
         else:
             print(f"Personagem {nome_personagem} não encontrado!")
-    
-    
-    
-    
-    
-    
-            
+         
 
     def exibir_casas_BE(self, lista_maior):
         # O número sorteado define de onde os 8 itens devem começar

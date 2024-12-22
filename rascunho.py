@@ -64,3 +64,46 @@
         self.img_casa_8_lista = self.canvas_abre.create_image(750, 520, image=self.casa_8_lista)
 
         
+        
+        
+        
+         if hasattr(self, 'label_carta_menu1') and self.label_carta_menu1.winfo_exists():
+            self.label_carta_menu1.configure(text=self.back_end.cartas_player[0]["action_p"],text_color="white")
+        
+        if hasattr(self, 'label_carta_menu2') and self.label_carta_menu2.winfo_exists():
+            self.label_carta_menu2.configure(text=self.back_end.cartas_player[1]["action_p"],text_color="white")
+            
+        if hasattr(self, 'label_carta_menu3') and self.label_carta_menu3.winfo_exists():
+            self.label_carta_menu3.configure(text=self.back_end.cartas_player[2]["action_p"],text_color="white")
+        
+        
+
+            
+            
+            
+            
+            
+            
+            
+                        self.label_carta_menu2 = ctk.CTkLabel(
+            self.root,
+            text= self.back_end.cartas_player[1]["action_p"], # Variável de sistema
+            text_color= 'white',  
+            bg_color="black",  
+            font=("cambria", 14),
+            )            
+            self.label_carta_menu2.place(x=150, y=395, anchor='n' ) # relx=0.5, y=10, anchor="n"
+            self.widgets_dinamicos.append(self.label_carta_menu2)
+            
+            
+            
+            
+                        self.label_carta_menu3 = ctk.CTkLabel(
+            self.root,
+            text= self.back_end.cartas_player[2]["action_p"], # Variável de sistema
+            text_color= 'white',  
+            bg_color="black",  
+            font=("cambria", 14),
+            )            
+            self.label_carta_menu3.place(x=250, y=395, anchor='n' ) # relx=0.5, y=10, anchor="n"
+            self.widgets_dinamicos.append(self.label_carta_menu3)
