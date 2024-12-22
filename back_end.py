@@ -1,6 +1,6 @@
 # Funcionalidades do jogo
 # criado:  18/12/24
-# atualizado: 18/12/24
+# atualizado: 21/12/24
 
 import ctypes
 import tkinter as tk
@@ -16,7 +16,11 @@ class Back_End:
         self.personagem_escolhido_about = "Return and select a player\nto start"
         self.personagem_escolhido_imagem = None
         
+        self.player_xp = 3
+        self.player_pontos = 0    
         self.casa_atual = 1 # Inicializando com a casa 1
+        
+        self.observadores = []  # Lista de observadores
         
         self.carta_inicial = [{
             "nome": "No name",
@@ -24,6 +28,7 @@ class Back_End:
             "imagem": "images/carta_default.png",
             "imagem_pequena": "images/carta_menu.png"
         }]
+        
         # Só pode ter 1 carta
         self.cartas_player = [{
         "nome": "cartinha 1",
@@ -56,6 +61,7 @@ class Back_End:
             'agua': "#5FD3C1",
         }
         # deixar no default quando terminar o layout
+        
         self.cor_layout_atual = self.cores_layout['branco'] #"default de layout texto branco
         
         # dicionário dos personagens em jogo
@@ -183,6 +189,7 @@ the status of a demigod.""",
             "roxo": "images/tijolos_roxo.png",
             "agua": "images/tijolos_agua.png",
         }
+        
         self.tijolos_cor_atual = "images/tijolos_azuis.png" # default
         
         self.dic_cards = {
@@ -210,52 +217,52 @@ the status of a demigod.""",
     {"numero": 7, "texto": "", "imagem": "imagens_casas/casa_007.png"},
     {"numero": 8, "texto": "Prometheus", "imagem": "imagens_casas/casa_008.png"},
     {"numero": 9, "texto": "", "imagem": "imagens_casas/casa_009.png"},
-    {"numero": 10, "texto": "", "imagem": "imagens_casas/casa_010.png"},
+    {"numero": 10, "texto": "Sparta", "imagem": "imagens_casas/casa_010.png"},
     {"numero": 11, "texto": "", "imagem": "imagens_casas/casa_011.png"},
     {"numero": 12, "texto": "", "imagem": "imagens_casas/casa_012.png"},
-    {"numero": 13, "texto": "", "imagem": "imagens_casas/casa_013.png"},
+    {"numero": 13, "texto": "Hestia", "imagem": "imagens_casas/casa_013.png"},
     {"numero": 14, "texto": "", "imagem": "imagens_casas/casa_014.png"},
     {"numero": 15, "texto": "", "imagem": "imagens_casas/casa_015.png"},
     {"numero": 16, "texto": "", "imagem": "imagens_casas/casa_016.png"},
-    {"numero": 17, "texto": "", "imagem": "imagens_casas/casa_017.png"},
+    {"numero": 17, "texto": "Chimera", "imagem": "imagens_casas/casa_017.png"},
     {"numero": 18, "texto": "", "imagem": "imagens_casas/casa_018.png"},
     {"numero": 19, "texto": "", "imagem": "imagens_casas/casa_019.png"},
     {"numero": 20, "texto": "", "imagem": "imagens_casas/casa_020.png"},
-    {"numero": 21, "texto": "", "imagem": "imagens_casas/casa_021.png"},
+    {"numero": 21, "texto": "Poseidon", "imagem": "imagens_casas/casa_021.png"},
     {"numero": 22, "texto": "", "imagem": "imagens_casas/casa_022.png"},
     {"numero": 23, "texto": "", "imagem": "imagens_casas/casa_023.png"},
-    {"numero": 24, "texto": "", "imagem": "imagens_casas/casa_024.png"},
+    {"numero": 24, "texto": "Ciclops", "imagem": "imagens_casas/casa_024.png"},
     {"numero": 25, "texto": "", "imagem": "imagens_casas/casa_025.png"},
     {"numero": 26, "texto": "", "imagem": "imagens_casas/casa_026.png"},
     {"numero": 27, "texto": "", "imagem": "imagens_casas/casa_027.png"},
-    {"numero": 28, "texto": "", "imagem": "imagens_casas/casa_028.png"},
+    {"numero": 28, "texto": "Harpies", "imagem": "imagens_casas/casa_028.png"},
     {"numero": 29, "texto": "", "imagem": "imagens_casas/casa_029.png"},
-    {"numero": 30, "texto": "", "imagem": "imagens_casas/casa_030.png"},
+    {"numero": 30, "texto": "Athena", "imagem": "imagens_casas/casa_030.png"},
     {"numero": 31, "texto": "", "imagem": "imagens_casas/casa_031.png"},
-    {"numero": 32, "texto": "", "imagem": "imagens_casas/casa_032.png"},
+    {"numero": 32, "texto": "Thanatos", "imagem": "imagens_casas/casa_032.png"},
     {"numero": 33, "texto": "", "imagem": "imagens_casas/casa_033.png"},
-    {"numero": 34, "texto": "", "imagem": "imagens_casas/casa_034.png"},
+    {"numero": 34, "texto": "Minotaur", "imagem": "imagens_casas/casa_034.png"},
     {"numero": 35, "texto": "", "imagem": "imagens_casas/casa_035.png"},
-    {"numero": 36, "texto": "", "imagem": "imagens_casas/casa_036.png"},
+    {"numero": 36, "texto": "Labyrinth", "imagem": "imagens_casas/casa_036.png"},
     {"numero": 37, "texto": "", "imagem": "imagens_casas/casa_037.png"},
-    {"numero": 38, "texto": "", "imagem": "imagens_casas/casa_038.png"},
-    {"numero": 39, "texto": "", "imagem": "imagens_casas/casa_039.png"},
+    {"numero": 38, "texto": "Hades", "imagem": "imagens_casas/casa_038.png"},
+    {"numero": 39, "texto": "Charon", "imagem": "imagens_casas/casa_039.png"},
     {"numero": 40, "texto": "", "imagem": "imagens_casas/casa_040.png"},
     {"numero": 41, "texto": "", "imagem": "imagens_casas/casa_041.png"},
-    {"numero": 42, "texto": "", "imagem": "imagens_casas/casa_042.png"},
+    {"numero": 42, "texto": "Judgment", "imagem": "imagens_casas/casa_042.png"},
     {"numero": 43, "texto": "", "imagem": "imagens_casas/casa_043.png"},
-    {"numero": 44, "texto": "", "imagem": "imagens_casas/casa_044.png"},
+    {"numero": 44, "texto": "Orpheus", "imagem": "imagens_casas/casa_044.png"},
     {"numero": 45, "texto": "", "imagem": "imagens_casas/casa_045.png"},
     {"numero": 46, "texto": "", "imagem": "imagens_casas/casa_046.png"},
     {"numero": 47, "texto": "", "imagem": "imagens_casas/casa_047.png"},
     {"numero": 48, "texto": "", "imagem": "imagens_casas/casa_048.png"},
-    {"numero": 49, "texto": "", "imagem": "imagens_casas/casa_049.png"},
+    {"numero": 49, "texto": "Hephaestus", "imagem": "imagens_casas/casa_049.png"},
     {"numero": 50, "texto": "", "imagem": "imagens_casas/casa_050.png"},
     {"numero": 51, "texto": "", "imagem": "imagens_casas/casa_051.png"},
-    {"numero": 52, "texto": "", "imagem": "imagens_casas/casa_052.png"},
+    {"numero": 52, "texto": "Erinyes", "imagem": "imagens_casas/casa_052.png"},
     {"numero": 53, "texto": "", "imagem": "imagens_casas/casa_053.png"},
     {"numero": 54, "texto": "", "imagem": "imagens_casas/casa_054.png"},
-    {"numero": 55, "texto": "", "imagem": "imagens_casas/casa_055.png"},
+    {"numero": 55, "texto": "Demeter", "imagem": "imagens_casas/casa_055.png"},
     {"numero": 56, "texto": "", "imagem": "imagens_casas/casa_056.png"},
     {"numero": 57, "texto": "", "imagem": "imagens_casas/casa_057.png"},
     {"numero": 58, "texto": "", "imagem": "imagens_casas/casa_058.png"},
@@ -322,8 +329,22 @@ the status of a demigod.""",
     {"numero": 119, "texto": "", "imagem": "imagens_casas/casa_119.png"},
     {"numero": 120, "texto": "", "imagem": "imagens_casas/casa_120.png"}
 ]
+       
+    # """Registra a Tela_Jogo como observadora"""
+    # def adicionar_observador(self, observador):
+    #     self.observadores.append(observador)
 
-
+    # """Notifica todos os observadores (ex: Tela_Jogo) sobre uma atualização"""
+    # def notificar_observadores(self):
+    #     for observador in self.observadores:
+    #         observador.atualizar_interface()
+     
+            
+    # def atualizar_dados(self, casa_atual, player_pontos):
+    #     """Método para atualizar dados no Back_End"""
+    #     self.casa_atual = casa_atual
+    #     self.player_pontos = player_pontos
+    #     self.notificar_observadores()  # Notifica todos os observadores sobre a mudança
 
 
     def escolher_carta(self):
@@ -386,15 +407,15 @@ the status of a demigod.""",
                   f"Imagem do personagem: {self.personagem_escolhido_imagem}")
         else:
             print(f"Personagem {nome_personagem} não encontrado!")
+    
+    
+    
+    
+    
+    
             
-        
 
-
-
-
-
-
-    def exibir_casas(self, lista_maior):
+    def exibir_casas_BE(self, lista_maior):
         # O número sorteado define de onde os 8 itens devem começar
         # Vamos garantir que o número esteja entre 1 e 120
         if self.casa_atual < 1 or self.casa_atual> 120:
@@ -421,9 +442,8 @@ the status of a demigod.""",
         # Retorna os 8 itens para serem exibidos
         return lista_exibida
     
-    
-    
-    def atualizar_tijolos(self):
+       
+    def atualizar_tijolos_BE(self):
         if self.casa_atual <= 16:
             self.tijolos_cor_atual = self.tijolos_cor["azul"]
         elif self.casa_atual <= 32:
@@ -442,7 +462,7 @@ the status of a demigod.""",
             self.tijolos_cor_atual = self.tijolos_cor["agua"]
             
             
-    def atualizar_cor_layout(self):
+    def atualizar_cor_layout_BE(self):
         if self.casa_atual <= 16:
             self.cor_layout_atual = self.cores_layout["azul"]
         elif self.casa_atual <= 32:
@@ -460,4 +480,39 @@ the status of a demigod.""",
         elif self.casa_atual <= 120:
             self.cor_layout_atual = self.cores_layout["agua"]
 
+     
+    def rolar_dado_BE(self):
+        # sorteia um número entre 1 e 6
+        # Atualiza a posição od jogador
+        # + 15 pontos para cada casa avançada
+        numero_sorteado = random.randint(1, 6)
+        print(f'Número sorteado: {numero_sorteado}')
+        self.casa_atual += numero_sorteado
+        print(f'Casa atual {self.casa_atual}')
+        self.atualizar_tijolos()
+        self.atualizar_cor_layout()
+        self.atualizar_tijolos()
         
+        
+       # self.notificar_observadores()  # Notifica as mudanças
+        
+        
+        
+        #self.pontos += (numero_sorteado * 15)
+        #self.atualizar_numeros_tabuleiro()
+
+        # if numero_sorteado == 1:
+        #     self.imagem_dado = "images/dado1.png"
+        # elif numero_sorteado == 2:
+        #     self.imagem_dado = "images/dado2.png"
+        # elif numero_sorteado == 3:
+        #     self.imagem_dado = "images/dado3.png"
+        # elif numero_sorteado == 4:
+        #     self.imagem_dado = "images/dado4.png"
+        # elif numero_sorteado == 5:
+        #     self.imagem_dado = "images/dado5.png"
+        # else:
+        #     self.imagem_dado = "images/dado6.png"
+
+        # # Atualiza a lista de posições exibidas
+        # self.obter_numeros_exibidos()   

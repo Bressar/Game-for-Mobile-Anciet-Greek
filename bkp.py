@@ -272,9 +272,9 @@ class Tela_Jogo:
             anchor="center")  
                 
         # testando a função das cartas
-        self.quadro_de_acao_carta()      
+       # self.quadro_de_acao_carta()      
         # teste de evento de casa 
-        #self.quadro_de_acao_evento()
+        self.quadro_de_acao_evento()
         
   
     def exibir_casas(self, lista_maior):
@@ -347,6 +347,7 @@ class Tela_Jogo:
         #self.atualizar_layout_widgets()  # Atualiza os widgets com a nova cor
 
 
+
     def rolar_dado(self):
             # Sorteia um número entre 1 e 6
             numero_sorteado = random.randint(1, 6)
@@ -375,10 +376,9 @@ class Tela_Jogo:
 
     def atualizar_tela(self):
         """Atualiza os widgets e elementos gráficos baseados nas variáveis do backend."""  
+        
         # Atualiza a cor do layout antes de usá-la
         self.atualizar_cor_layout()  # Atualiza a cor do layout com o valor do backend
-        self.atualizar_tijolos()  # Atualiza a cor do tijolinho no  backend
-        self.atualizar_imagem_tijolo()  # Atualiza a imagem no Canvas   
         
         # Atualizar a lista de casas exibidas
         self.casas_exibidas = self.exibir_casas(self.back_end.casas)
@@ -399,16 +399,117 @@ class Tela_Jogo:
         if hasattr(self, 'label_cartas') and self.label_cartas.winfo_exists():
             self.label_cartas.configure(text="Your Cards:",text_color="white")
             
+     
         # Atualizar a cor de fundo de todos os labels
         for widget in self.widgets_dinamicos:
             if isinstance(widget, ctk.CTkLabel):
                 # Atualiza a cor do texto e do fundo de todos os labels
                 widget.configure(bg_color="black",)  #text_color=self.cor_Layout
-                               
+                
+                
         for widget in self.widgets_dinamicos:
             if isinstance(widget, ctk.CTkLabel) and widget not in [self.label_pontos, self.label_xp, self.label_titulo_nome,self.label_cartas]:
                 widget.destroy()
                 self.widgets_dinamicos = [self.label_pontos, self.label_xp, self.label_titulo_nome, self.label_cartas]  # Mantém o 'label_pontos' na lista
+
+
+        
+        
+        
+        # Atualiza as imagens das casas
+        for i, casa in enumerate(self.casas_exibidas):
+            nova_imagem = PhotoImage(file=casa["imagem"])
+            try:
+                if i == 0:
+                    self.canvas_abre.itemconfig(self.img_casa_1_lista, image=nova_imagem)
+                    self.casa_1_lista = nova_imagem
+                elif i == 1:
+                    self.canvas_abre.itemconfig(self.img_casa_2_lista, image=nova_imagem)
+                    self.casa_2_lista = nova_imagem
+                elif i == 2:
+                    self.canvas_abre.itemconfig(self.img_casa_3_lista, image=nova_imagem)
+                    self.casa_3_lista = nova_imagem
+                elif i == 3:
+                    self.canvas_abre.itemconfig(self.img_casa_4_lista, image=nova_imagem)
+                    self.casa_4_lista = nova_imagem
+                elif i == 4:
+                    self.canvas_abre.itemconfig(self.img_casa_5_lista, image=nova_imagem)
+                    self.casa_5_lista = nova_imagem
+                elif i == 5:
+                    self.canvas_abre.itemconfig(self.img_casa_6_lista, image=nova_imagem)
+                    self.casa_6_lista = nova_imagem
+                elif i == 6:
+                    self.canvas_abre.itemconfig(self.img_casa_7_lista, image=nova_imagem)
+                    self.casa_7_lista = nova_imagem
+                elif i == 7:
+                    self.canvas_abre.itemconfig(self.img_casa_8_lista, image=nova_imagem)
+                    self.casa_8_lista = nova_imagem
+            except Exception as e:
+                print(f"Erro ao atualizar imagem da casa {i + 1}: {e}")
+
+        # Atualiza manualmente os textos dos labels das casas
+        # for widget in self.widgets_dinamicos:
+        #     if isinstance(widget, ctk.CTkLabel) and widget != self.label_pontos:
+        #         widget.destroy()
+        # self.widgets_dinamicos = [self.label_pontos, self.label_xp]  # Mantém o 'label_pontos' na lista
+        
+
+        # Lista de posições fixas no layout para as casas
+        posicoes_x = [50, 150, 250, 350, 450, 550, 650, 750]  # As posições X para as 8 casas
+        posicoes_y = 520  # Todas as casas têm a mesma posição Y fixada
+
+        # Criando e posicionando manualmente cada label
+        for i, casa in enumerate(self.casas_exibidas):
+            if casa["texto"]:  # Apenas cria labels para casas com texto
+                try:
+                    label_nome_casa = ctk.CTkLabel(
+                        self.root,
+                        text=casa["texto"],  # Usando o texto da casa
+                        text_color=self.cor_Layout,  # Cor do texto layout
+                        bg_color="black",  
+                        font=("Gelio Fasolada", 17),
+                    )
+                    label_nome_casa.place(x=posicoes_x[i], y=posicoes_y + 65, anchor="center")  # Posição fixa para o texto
+                    self.widgets_dinamicos.append(label_nome_casa)  # Adiciona o label para controle futuro
+                except Exception as e:
+                    print(f"Erro ao criar label para a casa {i + 1}: {e}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def atualizar_tela_mais_ou_menos(self):
+        """Atualiza os widgets e elementos gráficos baseados nas variáveis do backend."""  
+        
+        # Atualiza a cor do layout antes de usá-la
+        self.atualizar_cor_layout() # Atualiza a cor do layout com o valor do backend
+         
+        # Atualizar a lista de casas exibidas
+        self.casas_exibidas = self.exibir_casas(self.back_end.casas)
+        if not self.casas_exibidas or len(self.casas_exibidas) < 8:
+            print("Erro: A lista de casas exibidas está incompleta ou vazia.")
+            return
+        
+
+        # # Atualizar o texto do label de pontos
+        # self.label_pontos.configure(text=f"POINTS: {self.back_end.player_pontos}")
+          # Atualizar o texto dos labels, incluindo o label de pontos
+        self.label_pontos.configure(text=f"POINTS: {self.back_end.player_pontos}", text_color=self.cor_Layout)
+        
+        # Atualizar a cor de fundo de todos os labels
+        for widget in self.widgets_dinamicos:
+            if isinstance(widget, ctk.CTkLabel):
+                widget.configure(bg_color="black", text_color=self.cor_Layout)  # Atualiza cor do texto e fundo
+
 
         # Atualiza as imagens das casas
         for i, casa in enumerate(self.casas_exibidas):
@@ -441,6 +542,14 @@ class Tela_Jogo:
             except Exception as e:
                 print(f"Erro ao atualizar imagem da casa {i + 1}: {e}")
 
+        # Atualiza manualmente os textos dos labels das casas
+        # Remover labels antigos, mas sem remover o 'label_pontos'
+        for widget in self.widgets_dinamicos:
+            if isinstance(widget, ctk.CTkLabel) and widget != self.label_pontos:
+                widget.destroy()
+        self.widgets_dinamicos = [self.label_pontos]  # Mantém o 'label_pontos' na lista
+
+
         # Lista de posições fixas no layout para as casas
         posicoes_x = [50, 150, 250, 350, 450, 550, 650, 750]  # As posições X para as 8 casas
         posicoes_y = 520  # Todas as casas têm a mesma posição Y fixada
@@ -462,24 +571,289 @@ class Tela_Jogo:
                     print(f"Erro ao criar label para a casa {i + 1}: {e}")
 
 
-    def atualizar_imagem_tijolo(self):
-        """Atualiza dinamicamente a imagem do tijolinho no Canvas baseado no valor de tijolos_cor_atual."""
-        try:
-            # Atualiza as cores dos tijolos com base no backend
-            self.atualizar_tijolos()  # Chama a função que ajusta a cor atual dos tijolos no backend
-            
-            # Cria a nova imagem para o tijolinho com a cor definida
-            self.image_tijolinho = PhotoImage(file=self.back_end.tijolos_cor_atual)  # Foto da cor atual dos tijolos
-            
-            # Se a imagem do tijolinho já existe no canvas, apenas a atualiza
-            if hasattr(self, 'img_tijolinho') and self.canvas_abre.find_withtag("tijolinho"):
-                self.canvas_abre.itemconfig(self.img_tijolinho, image=self.image_tijolinho)
-            else:
-                # Caso não exista, cria a imagem do tijolinho no canvas
-                self.img_tijolinho = self.canvas_abre.create_image(400, 25, image=self.image_tijolinho, tags="tijolinho")
+    # def atualizar_layout_widgets_(self):
+    #     # Atualiza todas as cores de fundo e texto
+    #     for widget in self.widgets_dinamicos:
+    #         if isinstance(widget, ctk.CTkLabel):
+    #             widget.configure(bg_color="black", text_color=self.cor_Layout)
+    #         elif isinstance(widget, tk.Canvas):
+    #             widget.configure(bg="black")  # Atualiza o fundo do Canvas, se necessário
+
+
+
+
+
+    def atualizar_tela4(self):
+        """Atualiza os widgets e elementos gráficos baseados nas variáveis do backend."""
         
-        except Exception as e:
-            print(f"Erro ao atualizar a imagem dos tijolinhos: {e}")
+        # Atualizar a lista de casas exibidas
+        self.casas_exibidas = self.exibir_casas(self.back_end.casas)
+        if not self.casas_exibidas or len(self.casas_exibidas) < 8:
+            print("Erro: A lista de casas exibidas está incompleta ou vazia.")
+            return
+
+         # Atualizar o texto do label de pontos
+        if hasattr(self, "label_pontos"):  # Verifica se o widget 'label_pontos' existe
+            self.label_pontos.configure(text=f"POINTS: {self.back_end.player_pontos}")
+        else:
+            # Se não existe, cria o widget pela primeira vez
+            self.label_pontos = ctk.CTkLabel(
+                self.root,
+                text=f"POINTS: {self.back_end.player_pontos}",
+                text_color=self.cor_Layout,
+                bg_color="black",
+                font=("Gelio Fasolada", 18),
+            )
+            self.label_pontos.place(x=190, y=60)
+            self.widgets_dinamicos.append(self.label_pontos)
+        # # Atualizar o texto do label de pontos
+        # if hasattr(self, "label_pontos"):
+        #     self.label_pontos.configure(text=f"POINTS: {self.back_end.player_pontos}")
+        # else:
+        #     print("Erro: 'label_pontos' não foi inicializado corretamente.")
+
+        # Atualiza as imagens das casas
+        for i, casa in enumerate(self.casas_exibidas):
+            nova_imagem = PhotoImage(file=casa["imagem"])
+            try:
+                if i == 0:
+                    self.canvas_abre.itemconfig(self.img_casa_1_lista, image=nova_imagem)
+                    self.casa_1_lista = nova_imagem
+                elif i == 1:
+                    self.canvas_abre.itemconfig(self.img_casa_2_lista, image=nova_imagem)
+                    self.casa_2_lista = nova_imagem
+                elif i == 2:
+                    self.canvas_abre.itemconfig(self.img_casa_3_lista, image=nova_imagem)
+                    self.casa_3_lista = nova_imagem
+                elif i == 3:
+                    self.canvas_abre.itemconfig(self.img_casa_4_lista, image=nova_imagem)
+                    self.casa_4_lista = nova_imagem
+                elif i == 4:
+                    self.canvas_abre.itemconfig(self.img_casa_5_lista, image=nova_imagem)
+                    self.casa_5_lista = nova_imagem
+                elif i == 5:
+                    self.canvas_abre.itemconfig(self.img_casa_6_lista, image=nova_imagem)
+                    self.casa_6_lista = nova_imagem
+                elif i == 6:
+                    self.canvas_abre.itemconfig(self.img_casa_7_lista, image=nova_imagem)
+                    self.casa_7_lista = nova_imagem
+                elif i == 7:
+                    self.canvas_abre.itemconfig(self.img_casa_8_lista, image=nova_imagem)
+                    self.casa_8_lista = nova_imagem
+            except Exception as e:
+                print(f"Erro ao atualizar imagem da casa {i + 1}: {e}")
+
+        # Atualiza manualmente os textos dos labels
+        # Remove labels antigos se necessário
+        for widget in self.widgets_dinamicos:
+            if isinstance(widget, ctk.CTkLabel):
+                widget.destroy()
+        self.widgets_dinamicos = []  # Reseta a lista para novos widgets
+        
+        # Lista de posições fixas no layout para as casas
+        posicoes_x = [50, 150, 250, 350, 450, 550, 650, 750]  # As posições X para as 8 casas
+        posicoes_y = 520  # Todas as casas têm a mesma posição Y fixada
+
+        # Criando e posicionando manualmente cada label
+        for i, casa in enumerate(self.casas_exibidas):
+            if casa["texto"]:  # Apenas cria labels para casas com texto
+                try:
+                    label_nome_casa = ctk.CTkLabel(
+                        self.root,
+                        text=casa["texto"],  # Usando o texto da casa
+                        text_color=self.cor_Layout,  # Cor do texto layout
+                        bg_color="black",  
+                        font=("Gelio Fasolada", 17),
+                    )
+                    label_nome_casa.place(x=posicoes_x[i], y=posicoes_y + 65, anchor="center")  # Posição fixa para o texto
+                    self.widgets_dinamicos.append(label_nome_casa)  # Adiciona o label para controle futuro
+                except Exception as e:
+                    print(f"Erro ao criar label para a casa {i + 1}: {e}")
+
+    def atualizar_tela3(self):
+        """Atualiza os widgets e elementos gráficos baseados nas variáveis do backend."""
+        
+        # Atualizar a lista de casas exibidas
+        self.casas_exibidas = self.exibir_casas(self.back_end.casas)
+        if not self.casas_exibidas or len(self.casas_exibidas) < 8:
+            print("Erro: A lista de casas exibidas está incompleta ou vazia.")
+            return
+
+        # Atualizar o texto do label de pontos
+        self.label_pontos.configure(text=f"POINTS: {self.back_end.player_pontos}")
+        
+        # Atualiza as imagens das casas
+        for i, casa in enumerate(self.casas_exibidas):
+            nova_imagem = PhotoImage(file=casa["imagem"])
+            if i == 0:
+                self.canvas_abre.itemconfig(self.img_casa_1_lista, image=nova_imagem)
+                self.casa_1_lista = nova_imagem
+            elif i == 1:
+                self.canvas_abre.itemconfig(self.img_casa_2_lista, image=nova_imagem)
+                self.casa_2_lista = nova_imagem
+            elif i == 2:
+                self.canvas_abre.itemconfig(self.img_casa_3_lista, image=nova_imagem)
+                self.casa_3_lista = nova_imagem
+            elif i == 3:
+                self.canvas_abre.itemconfig(self.img_casa_4_lista, image=nova_imagem)
+                self.casa_4_lista = nova_imagem
+            elif i == 4:
+                self.canvas_abre.itemconfig(self.img_casa_5_lista, image=nova_imagem)
+                self.casa_5_lista = nova_imagem
+            elif i == 5:
+                self.canvas_abre.itemconfig(self.img_casa_6_lista, image=nova_imagem)
+                self.casa_6_lista = nova_imagem
+            elif i == 6:
+                self.canvas_abre.itemconfig(self.img_casa_7_lista, image=nova_imagem)
+                self.casa_7_lista = nova_imagem
+            elif i == 7:
+                self.canvas_abre.itemconfig(self.img_casa_8_lista, image=nova_imagem)
+                self.casa_8_lista = nova_imagem
+
+        # Atualiza os textos dos labels
+        # Lista de posições fixas no layout para as casas
+        posicoes_x = [50, 150, 250, 350, 450, 550, 650, 750]  # As posições X para as 8 casas
+        posicoes_y = 520  # Todas as casas têm a mesma posição Y fixada
+        
+        for i, label in enumerate(self.widgets_dinamicos):
+            if isinstance(label, ctk.CTkLabel):
+                if i < len(self.casas_exibidas):
+                    label.configure(text=self.casas_exibidas[i]["texto"])
+                    label.place(x=posicoes_x[i], y=posicoes_y + 65, anchor="center")  # Reposiciona
+
+    def atualizar_tela2(self):
+        """Atualiza os widgets e elementos gráficos baseados nas variáveis do backend."""
+        
+        # Atualizar a lista de casas exibidas
+        self.casas_exibidas = self.exibir_casas(self.back_end.casas)
+        if not self.casas_exibidas or len(self.casas_exibidas) < 8:
+            print("Erro: A lista de casas exibidas está incompleta ou vazia.")
+            return
+
+        # Atualizar o texto do label de pontos
+        self.label_pontos.configure(text=f"POINTS: {self.back_end.player_pontos}")
+        
+        # Atualiza as imagens das casas
+        for i, casa in enumerate(self.casas_exibidas):
+            nova_imagem = PhotoImage(file=casa["imagem"])
+            if i == 0:
+                self.canvas_abre.itemconfig(self.img_casa_1_lista, image=nova_imagem)
+                self.casa_1_lista = nova_imagem
+            elif i == 1:
+                self.canvas_abre.itemconfig(self.img_casa_2_lista, image=nova_imagem)
+                self.casa_2_lista = nova_imagem
+            elif i == 2:
+                self.canvas_abre.itemconfig(self.img_casa_3_lista, image=nova_imagem)
+                self.casa_3_lista = nova_imagem
+            elif i == 3:
+                self.canvas_abre.itemconfig(self.img_casa_4_lista, image=nova_imagem)
+                self.casa_4_lista = nova_imagem
+            elif i == 4:
+                self.canvas_abre.itemconfig(self.img_casa_5_lista, image=nova_imagem)
+                self.casa_5_lista = nova_imagem
+            elif i == 5:
+                self.canvas_abre.itemconfig(self.img_casa_6_lista, image=nova_imagem)
+                self.casa_6_lista = nova_imagem
+            elif i == 6:
+                self.canvas_abre.itemconfig(self.img_casa_7_lista, image=nova_imagem)
+                self.casa_7_lista = nova_imagem
+            elif i == 7:
+                self.canvas_abre.itemconfig(self.img_casa_8_lista, image=nova_imagem)
+                self.casa_8_lista = nova_imagem
+
+        # Atualiza os labels das casas
+        # Lista de posições fixas no layout para as casas
+        posicoes_x = [50, 150, 250, 350, 450, 550, 650, 750]  # As posições X para as 8 casas
+        posicoes_y = 520  # Todas as casas têm a mesma posição Y fixada
+        
+        # Remove os labels antigos e recria os novos com a posição correta
+        for label in self.widgets_dinamicos:
+            if isinstance(label, ctk.CTkLabel):
+                label.destroy()  # Remove o widget antigo
+        
+        self.widgets_dinamicos = []  # Limpa a lista para recriar os labels
+
+        for i, casa in enumerate(self.casas_exibidas):
+            # Cria um novo label para cada casa, reposicionando-o corretamente
+            label_nome_casa = ctk.CTkLabel(
+                self.root,
+                text=casa["texto"],  # Usando o texto da casa, que vem do dicionário
+                text_color=self.cor_Layout,  # Cor do texto layout
+                bg_color="black",
+                font=("Gelio Fasolada", 17),
+            )
+            label_nome_casa.place(x=posicoes_x[i], y=posicoes_y + 65, anchor="center")  # Posição fixa para o texto
+            self.widgets_dinamicos.append(label_nome_casa)
+        
+        # Debug para verificar o resultado da atualização
+        for casa in self.casas_exibidas:
+            print(f"Casa {casa['numero']}: {casa['texto']} - {casa['imagem']}")
+
+    def atualizar_tela1(self):
+        """Atualiza os widgets e elementos gráficos baseados nas variáveis do backend."""
+        
+        # Atualizar a lista de casas exibidas
+        self.casas_exibidas = self.exibir_casas(self.back_end.casas)
+        if not self.casas_exibidas or len(self.casas_exibidas) < 8:
+            print("Erro: A lista de casas exibidas está incompleta ou vazia.")
+            return
+
+        # Atualizar o texto do label de pontos
+        self.label_pontos.configure(text=f"POINTS: {self.back_end.player_pontos}")
+        
+        # Atualiza as imagens das casas
+        for i, casa in enumerate(self.casas_exibidas):
+            nova_imagem = PhotoImage(file=casa["imagem"])
+            if i == 0:
+                self.canvas_abre.itemconfig(self.img_casa_1_lista, image=nova_imagem)
+                self.casa_1_lista = nova_imagem
+            elif i == 1:
+                self.canvas_abre.itemconfig(self.img_casa_2_lista, image=nova_imagem)
+                self.casa_2_lista = nova_imagem
+            elif i == 2:
+                self.canvas_abre.itemconfig(self.img_casa_3_lista, image=nova_imagem)
+                self.casa_3_lista = nova_imagem
+            elif i == 3:
+                self.canvas_abre.itemconfig(self.img_casa_4_lista, image=nova_imagem)
+                self.casa_4_lista = nova_imagem
+            elif i == 4:
+                self.canvas_abre.itemconfig(self.img_casa_5_lista, image=nova_imagem)
+                self.casa_5_lista = nova_imagem
+            elif i == 5:
+                self.canvas_abre.itemconfig(self.img_casa_6_lista, image=nova_imagem)
+                self.casa_6_lista = nova_imagem
+            elif i == 6:
+                self.canvas_abre.itemconfig(self.img_casa_7_lista, image=nova_imagem)
+                self.casa_7_lista = nova_imagem
+            elif i == 7:
+                self.canvas_abre.itemconfig(self.img_casa_8_lista, image=nova_imagem)
+                self.casa_8_lista = nova_imagem
+        
+        # Atualiza os labels das casas
+        for i, label in enumerate(self.widgets_dinamicos):
+            if isinstance(label, ctk.CTkLabel) and i < len(self.casas_exibidas):
+                label.configure(text=self.casas_exibidas[i]["texto"])
+
+          
+    # def rolar_dado_velhos(self):
+    #     # sorteia um número entre 1 e 6
+    #     numero_sorteado = random.randint(1, 6)
+    #     print(f'Número sorteado: {numero_sorteado}')
+        
+    #     # Atualiza a posição od jogador
+    #     self.back_end.casa_atual += numero_sorteado
+    #     print(f'Casa atual {self.back_end.casa_atual}')
+        
+    #     # + 15 pontos para cada casa avançada
+    #     self.back_end.player_pontos += ( 15 * numero_sorteado)
+    #     print(f'Pontos do jogador: {self.back_end.player_pontos}')
+    #     # Atualiza o Back_End com as novas informações
+    #     self.back_end.atualizar_dados(nova_casa_atual, novo_pontos)
+
+    #     #self.exibir_casas()
+    #     self.atualizar_tijolos()
+    #     self.atualizar_cor_layout()
+    #     # self.atualizar_interface()
 
 
     
