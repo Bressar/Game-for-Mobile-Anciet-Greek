@@ -204,8 +204,9 @@ or roll
             "nome": "Athena",
             "action": "Win 1 battle, or advance 2 spaces",
             "action_p": """Win
-1 battle, or
-advance 2 spaces""",
+1 battle,
+or advance
+2 spaces""",
             "imagem": "images/carta_athena.png",
             "imagem_pequena": "images/carta_athena_p.png"
         }

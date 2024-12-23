@@ -44,6 +44,68 @@ class Tela_Jogo:
         # Define um intervalo para o próximo quadro (em milissegundos)
         self.root.after(500, self.play_gif)  # meio frame por segundo
     
+    
+     # DADO DE ROLAGEM
+     
+    def rolagem_de_dados(self):
+        # Carrega o GIF com PIL
+        self.gif = Image.open("images/dado_grego.gif")
+        self.frames = []
+        # Extrai os quadros do GIF
+        try:
+            while True:
+                frame = self.gif.copy()
+                frame = frame.convert("RGBA")  # Certificar-se de que está em RGBA
+                # Adicionar fundo preto onde há transparência
+                black_bg = Image.new("RGBA", frame.size, "black")
+                frame = Image.alpha_composite(black_bg, frame)
+                # Redimensionar o quadro
+                frame = frame.resize((80, 80), Image.Resampling.LANCZOS) # reduz a imagem pra 80 X 80
+                # Converter para PhotoImage
+                self.frames.append(ImageTk.PhotoImage(frame))
+                self.gif.seek(len(self.frames))  # Avançar para o próximo quadro
+        except EOFError:
+            pass  # Final do GIF
+        # Configuraçºão do Canvas - tamanhao do Dado
+        self.canvas = tk.Canvas(self.root, width=80, height=80, bg="black", highlightthickness=0)
+        self.canvas.place(x=160, y=100)       
+        # Exibir o primeiro quadro
+        self.image_on_canvas = self.canvas.create_image(0, 0, anchor="nw", image=self.frames[0])        
+        # Inicializa o índice do quadro
+        self.current_frame = 0      
+        # Exibe a animação
+        self.play_gif()
+         
+        # Botão de rolagem de dados
+        botao_rolar_dados = ctk.CTkButton(
+        self.canvas_abre,
+        fg_color='black',
+        width= 100,
+        border_width= 1,
+        border_color= "white",
+        hover_color='red',
+        text="Roll a die!",
+        font=("Gelio Greek Diner", 18),
+        command=lambda: (self.rolar_dado(), self.atualizar_tela()) # ROLAR DADO!!!
+        )
+        botao_rolar_dados.place(x=150, y=185)
+        self.widgets_dinamicos.append(botao_rolar_dados)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
        
     def tela_game(self):
         self.canvas_abre = Canvas(self.root, width=800, height=600, bg="black", bd=0, highlightthickness=0)
@@ -56,6 +118,11 @@ class Tela_Jogo:
         self.atualizar_tijolos()# atualiza as cores dos tijolos
         self.image_tijolinho = PhotoImage(file=self.back_end.tijolos_cor_atual) # Variável dinâmica
         self.img_tijolinho = self.canvas_abre.create_image(400, 25, image=self.image_tijolinho)
+        
+        
+        self.rolagem_de_dados() # rola o dado teste
+        
+
        
         print(f"Debug classe Tela Jogo: {self.back_end.personagem_escolhido_imagem}") 
         # Imagem Carinha Tela Jogo
@@ -105,49 +172,49 @@ class Tela_Jogo:
         self.label_pontos.place(x=190, y=60, ) # relx=0.5, y=10, anchor="n"
         self.widgets_dinamicos.append(self.label_pontos)
         
-        # DADO DE ROLAGEM
-        # Carrega o GIF com PIL
-        self.gif = Image.open("images/dado_grego.gif")
-        self.frames = []
-        # Extrai os quadros do GIF
-        try:
-            while True:
-                frame = self.gif.copy()
-                frame = frame.convert("RGBA")  # Certificar-se de que está em RGBA
-                # Adicionar fundo preto onde há transparência
-                black_bg = Image.new("RGBA", frame.size, "black")
-                frame = Image.alpha_composite(black_bg, frame)
-                # Redimensionar o quadro
-                frame = frame.resize((80, 80), Image.Resampling.LANCZOS) # reduz a imagem pra 80 X 80
-                # Converter para PhotoImage
-                self.frames.append(ImageTk.PhotoImage(frame))
-                self.gif.seek(len(self.frames))  # Avançar para o próximo quadro
-        except EOFError:
-            pass  # Final do GIF
-        # Configuraçºão do Canvas - tamanhao do Dado
-        self.canvas = tk.Canvas(self.root, width=80, height=80, bg="black", highlightthickness=0)
-        self.canvas.place(x=160, y=100)       
-        # Exibir o primeiro quadro
-        self.image_on_canvas = self.canvas.create_image(0, 0, anchor="nw", image=self.frames[0])        
-        # Inicializa o índice do quadro
-        self.current_frame = 0      
-        # Exibe a animação
-        self.play_gif()
+        # # DADO DE ROLAGEM
+        # # Carrega o GIF com PIL
+        # self.gif = Image.open("images/dado_grego.gif")
+        # self.frames = []
+        # # Extrai os quadros do GIF
+        # try:
+        #     while True:
+        #         frame = self.gif.copy()
+        #         frame = frame.convert("RGBA")  # Certificar-se de que está em RGBA
+        #         # Adicionar fundo preto onde há transparência
+        #         black_bg = Image.new("RGBA", frame.size, "black")
+        #         frame = Image.alpha_composite(black_bg, frame)
+        #         # Redimensionar o quadro
+        #         frame = frame.resize((80, 80), Image.Resampling.LANCZOS) # reduz a imagem pra 80 X 80
+        #         # Converter para PhotoImage
+        #         self.frames.append(ImageTk.PhotoImage(frame))
+        #         self.gif.seek(len(self.frames))  # Avançar para o próximo quadro
+        # except EOFError:
+        #     pass  # Final do GIF
+        # # Configuraçºão do Canvas - tamanhao do Dado
+        # self.canvas = tk.Canvas(self.root, width=80, height=80, bg="black", highlightthickness=0)
+        # self.canvas.place(x=160, y=100)       
+        # # Exibir o primeiro quadro
+        # self.image_on_canvas = self.canvas.create_image(0, 0, anchor="nw", image=self.frames[0])        
+        # # Inicializa o índice do quadro
+        # self.current_frame = 0      
+        # # Exibe a animação
+        # self.play_gif()
          
-        # Botão de rolagem de dados
-        botao_rolar_dados = ctk.CTkButton(
-        self.canvas_abre,
-        fg_color='black',
-        width= 100,
-        border_width= 1,
-        border_color= "white",
-        hover_color='red',
-        text="Roll a die!",
-        font=("Gelio Greek Diner", 18),
-        command=lambda: (self.rolar_dado(), self.atualizar_tela()) # ROLAR DADO!!!
-        )
-        botao_rolar_dados.place(x=150, y=185)
-        self.widgets_dinamicos.append(botao_rolar_dados)
+        # # Botão de rolagem de dados
+        # botao_rolar_dados = ctk.CTkButton(
+        # self.canvas_abre,
+        # fg_color='black',
+        # width= 100,
+        # border_width= 1,
+        # border_color= "white",
+        # hover_color='red',
+        # text="Roll a die!",
+        # font=("Gelio Greek Diner", 18),
+        # command=lambda: (self.rolar_dado(), self.atualizar_tela()) # ROLAR DADO!!!
+        # )
+        # botao_rolar_dados.place(x=150, y=185)
+        # self.widgets_dinamicos.append(botao_rolar_dados)
          
          #linha               
         self.canvas_abre.create_text(
