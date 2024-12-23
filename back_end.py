@@ -34,6 +34,8 @@ a card to start""",
         self.carta_casa_deus = [ {
             "nome": "Persephone",
             "action": "Go back 1, 2, or 3 spaces",
+            "action_p": """Return and select
+a card to start""",
             "imagem": "images/carta_persephone.png",
             "imagem_pequena": "images/carta_persephone_p.png"
         }]
@@ -143,7 +145,7 @@ or roll
         {
             "nome": "Hephaestus",
             "action": "Roll 1 die again",
-            "action_P": """Roll
+            "action_p": """Roll
 1 die
 again""",
             "imagem": "images/carta_hephaestus.png",

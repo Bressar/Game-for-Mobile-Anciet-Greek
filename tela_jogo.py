@@ -170,9 +170,6 @@ class Tela_Jogo:
             )            
         self.label_cartas.place(x=10, y=240) 
         self.widgets_dinamicos.append(self.label_cartas)
-        
-        
-
                  
         # cartas pequenas
          # Carta 1
@@ -294,12 +291,12 @@ class Tela_Jogo:
         height=20,
         fg_color='black',
         border_width= 1,
-        text_color= self.cor_Layout,
-        border_color= self.cor_Layout,
+        text_color= "white",
+        border_color= "white",
         hover_color="red",
         text="EXIT",
         font=("Gelio Fasolada", 14),
-        command=lambda: self.telas_iniciais.tela_02()#self.interface_jogo.sair_jogo()
+        command=lambda: self.interface_jogo.sair_jogo()
         )
         botao_sair.place(x=750, y=60)
         self.widgets_dinamicos.append(botao_sair)

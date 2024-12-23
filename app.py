@@ -39,10 +39,10 @@ class Interface_Jogo:
         self.janelas_abertas = [] # para a função sair(main)
       
         # Interface de incialização 
-        #self.Telas_iniciais.tela_01()
+        self.Telas_iniciais.tela_01()
         #self.Telas_iniciais.tela_02()
         #self.Telas_iniciais.tela_03()
-        self.tela_jogo.tela_game()
+        #self.tela_jogo.tela_game()
         
 
 
